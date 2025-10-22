@@ -165,6 +165,44 @@
     .footer-nav a.active {
       color: #4682B4;
     }
+    
+    /* スタイル選択ボタンのスタイル */
+    .style-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 0.75rem;
+      border-radius: 1rem;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(135, 206, 235, 0.1));
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      color: #666;
+      font-weight: 500;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      min-width: 4rem;
+      box-shadow: 0 4px 12px -4px rgba(135, 206, 235, 0.2);
+    }
+    
+    .style-btn:hover {
+      transform: translateY(-2px) scale(1.05);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(135, 206, 235, 0.2));
+      box-shadow: 0 6px 16px -4px rgba(135, 206, 235, 0.3);
+    }
+    
+    .style-btn.active {
+      background: linear-gradient(145deg, rgba(70, 130, 180, 0.2), rgba(135, 206, 235, 0.3));
+      color: #4682B4;
+      border-color: rgba(70, 130, 180, 0.4);
+      box-shadow: 
+        0 6px 16px -4px rgba(70, 130, 180, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.8);
+    }
+    
+    .style-btn.active:hover {
+      transform: translateY(-2px) scale(1.05);
+      background: linear-gradient(145deg, rgba(70, 130, 180, 0.3), rgba(135, 206, 235, 0.4));
+    }
   </style>
   </head>
 <body class="antialiased">
@@ -209,6 +247,23 @@
       <!-- ===== 今日の服装提案エリア ===== -->
       <section class="card transform rotate-1">
         <h3 class="font-bold text-lg mb-4 text-center">きょうのコーデ案</h3>
+        
+        <!-- スタイル選択ボタン -->
+        <div class="flex justify-center gap-2 mb-4">
+          <button class="style-btn active" data-style="business" id="style-business">
+            <span class="text-lg">👔</span>
+            <span class="text-xs">ビジネス</span>
+          </button>
+          <button class="style-btn" data-style="casual" id="style-casual">
+            <span class="text-lg">👕</span>
+            <span class="text-xs">カジュアル</span>
+          </button>
+          <button class="style-btn" data-style="child" id="style-child">
+            <span class="text-lg">👶</span>
+            <span class="text-xs">キッズ</span>
+          </button>
+        </div>
+        
         <div class="flex justify-around items-center text-center">
           <!-- 服装アイコン (絵文字) -->
           <div class="flex flex-col items-center">
@@ -271,40 +326,255 @@
   </footer>
 
   <script>
+    // グローバル変数
+    let currentWeatherData = null;
+    let currentStyle = 'business';
+    let userLocation = null;
+    
+    // 現在地を取得する関数
+    function getCurrentLocation() {
+      return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+          reject(new Error('Geolocation is not supported by this browser.'));
+          return;
+        }
+        
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const location = {
+              lat: position.coords.latitude,
+              lon: position.coords.longitude,
+              accuracy: position.coords.accuracy
+            };
+            userLocation = location;
+            resolve(location);
+          },
+          (error) => {
+            console.warn('GPS取得に失敗しました:', error.message);
+            // GPSが利用できない場合は東京の座標を使用
+            const fallbackLocation = {
+              lat: 35.6762,
+              lon: 139.6503,
+              accuracy: null
+            };
+            userLocation = fallbackLocation;
+            resolve(fallbackLocation);
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 300000 // 5分間キャッシュ
+          }
+        );
+      });
+    }
+    
     // データを取得して表示する関数
     async function fetchAndDisplayData() {
       try {
+        // 現在の日付を表示
+        const today = new Date();
+        const options = { 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric',
+          weekday: 'short'
+        };
+        const dateString = today.toLocaleDateString('ja-JP', options);
+        document.getElementById('date').textContent = dateString;
+        
+        // 現在地を取得
+        const location = await getCurrentLocation();
+        console.log('現在地:', location);
+        
         // 天気データを取得
-        const weatherResponse = await fetch('/api/v1/weather?lat=35.6762&lon=139.6503');
+        const weatherResponse = await fetch(`/api/v1/weather?lat=${location.lat}&lon=${location.lon}`);
         const weatherData = await weatherResponse.json();
         
         if (weatherData.status === 'success') {
+          currentWeatherData = weatherData.data;
+          
           // 天気データを表示
           document.getElementById('weather-icon').textContent = weatherData.data.current.icon;
           document.getElementById('temperature').innerHTML = weatherData.data.current.temperature + '<span class="text-2xl align-top text-gray-500">℃</span>';
           document.getElementById('temp-range').textContent = `${weatherData.data.today.max_temp}℃ / ${weatherData.data.today.min_temp}℃`;
           document.getElementById('rain-probability').textContent = weatherData.data.today.rain_probability + '%';
           
-          // 服装データを取得
-          const temp = weatherData.data.current.temperature;
-          const clothingResponse = await fetch(`/api/v1/clothing?temperature=${temp}&weather=${weatherData.data.current.condition}`);
-          const clothingData = await clothingResponse.json();
+          // 場所の情報を表示
+          if (weatherData.data.location) {
+            document.getElementById('location').textContent = weatherData.data.location.name;
+          }
           
-          if (clothingData.status === 'success') {
-            // 服装データを表示
-            const outfit = clothingData.data.outfit;
-            document.getElementById('clothing-icon-1').textContent = outfit.outer ? '🧥' : '👕';
-            document.getElementById('clothing-name-1').textContent = outfit.outer || outfit.top;
-            document.getElementById('clothing-icon-2').textContent = '👕';
-            document.getElementById('clothing-name-2').textContent = outfit.top;
-            document.getElementById('clothing-icon-3').textContent = '👖';
-            document.getElementById('clothing-name-3').textContent = outfit.bottom;
-            document.getElementById('clothing-advice').textContent = clothingData.data.advice;
+          // 服装データを取得（現在選択されているスタイルで）
+          await fetchClothingData(currentStyle);
+          
+          // 持ち物アドバイスを取得
+          const itemsResponse = await fetch(`/api/v1/items?temperature=${weatherData.data.current.temperature}&weather=${weatherData.data.current.condition}&humidity=${weatherData.data.current.humidity}&wind_speed=${weatherData.data.current.wind_speed}`);
+          const itemsData = await itemsResponse.json();
+          
+          if (itemsData.status === 'success') {
+            // 持ち物アドバイスを表示
+            displayItemsAdvice(itemsData.data);
           }
         }
       } catch (error) {
         console.error('データの取得に失敗しました:', error);
+        // エラー時はデフォルトの持ち物アドバイスを表示
+        displayDefaultItemsAdvice();
       }
+    }
+    
+    // 服装データを取得する関数
+    async function fetchClothingData(style) {
+      if (!currentWeatherData) return;
+      
+      try {
+        const temp = currentWeatherData.current.temperature;
+        const clothingResponse = await fetch(`/api/v1/clothing?temperature=${temp}&weather=${currentWeatherData.current.condition}&style=${style}`);
+        const clothingData = await clothingResponse.json();
+        
+        if (clothingData.status === 'success') {
+          // 服装データを表示
+          displayClothingData(clothingData.data);
+        }
+      } catch (error) {
+        console.error('服装データの取得に失敗しました:', error);
+      }
+    }
+    
+    // 服装データを表示する関数
+    function displayClothingData(clothingData) {
+      const outfit = clothingData.outfit;
+      
+      // アウターがある場合とない場合で表示を分ける
+      if (outfit.outer) {
+        // アウターがある場合: アウター + トップス + ボトムス
+        document.getElementById('clothing-icon-1').textContent = getOuterIcon(outfit.outer);
+        document.getElementById('clothing-name-1').textContent = outfit.outer;
+        document.getElementById('clothing-icon-2').textContent = getTopIcon(outfit.top);
+        document.getElementById('clothing-name-2').textContent = outfit.top;
+        document.getElementById('clothing-icon-3').textContent = getBottomIcon(outfit.bottom);
+        document.getElementById('clothing-name-3').textContent = outfit.bottom;
+      } else {
+        // アウターがない場合: トップス + ボトムス + 靴/アクセサリー
+        document.getElementById('clothing-icon-1').textContent = getTopIcon(outfit.top);
+        document.getElementById('clothing-name-1').textContent = outfit.top;
+        document.getElementById('clothing-icon-2').textContent = getBottomIcon(outfit.bottom);
+        document.getElementById('clothing-name-2').textContent = outfit.bottom;
+        
+        // 3番目は靴やアクセサリーを表示
+        if (outfit.shoes) {
+          document.getElementById('clothing-icon-3').textContent = getShoesIcon(outfit.shoes);
+          document.getElementById('clothing-name-3').textContent = outfit.shoes;
+        } else if (outfit.accessories && outfit.accessories.length > 0) {
+          document.getElementById('clothing-icon-3').textContent = getAccessoryIcon(outfit.accessories[0]);
+          document.getElementById('clothing-name-3').textContent = outfit.accessories[0];
+        } else {
+          document.getElementById('clothing-icon-3').textContent = '✨';
+          document.getElementById('clothing-name-3').textContent = '快適';
+        }
+      }
+      
+      document.getElementById('clothing-advice').textContent = clothingData.advice;
+    }
+    
+    // アイコンを取得するヘルパー関数
+    function getOuterIcon(outer) {
+      if (outer.includes('コート')) return '🧥';
+      if (outer.includes('ジャケット') || outer.includes('ブレザー')) return '👔';
+      if (outer.includes('パーカー')) return '🧥';
+      if (outer.includes('ダウン')) return '🧥';
+      return '🧥';
+    }
+    
+    function getTopIcon(top) {
+      if (top.includes('ポロ')) return '🏌️';
+      if (top.includes('ワイシャツ') || top.includes('シャツ')) return '👔';
+      if (top.includes('Tシャツ') || top.includes('半袖')) return '👕';
+      if (top.includes('セーター')) return '🧶';
+      if (top.includes('タンク')) return '🩳';
+      return '👕';
+    }
+    
+    function getBottomIcon(bottom) {
+      if (bottom.includes('スラックス') || bottom.includes('ズボン')) return '👖';
+      if (bottom.includes('ジーンズ')) return '👖';
+      if (bottom.includes('チノ')) return '👖';
+      if (bottom.includes('半ズボン') || bottom.includes('ショート')) return '🩳';
+      return '👖';
+    }
+    
+    function getShoesIcon(shoes) {
+      if (shoes.includes('革靴')) return '👞';
+      if (shoes.includes('ローファー')) return '👞';
+      if (shoes.includes('スニーカー') || shoes.includes('運動靴')) return '👟';
+      if (shoes.includes('ブーツ')) return '👢';
+      if (shoes.includes('サンダル')) return '🩴';
+      return '👟';
+    }
+    
+    function getAccessoryIcon(accessory) {
+      if (accessory.includes('マフラー')) return '🧣';
+      if (accessory.includes('手袋')) return '🧤';
+      if (accessory.includes('ネクタイ')) return '👔';
+      if (accessory.includes('帽子') || accessory.includes('ニット帽')) return '👒';
+      return '🧣';
+    }
+
+    // 持ち物アドバイスを表示する関数
+    function displayItemsAdvice(itemsData) {
+      const itemsContainer = document.getElementById('items-advice');
+      itemsContainer.innerHTML = '';
+      
+      // 必須アイテムを表示
+      itemsData.essential_items.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.className = 'flex items-center gap-4 mb-3';
+        itemElement.innerHTML = `
+          <span class="text-3xl" role="img" aria-label="${item.name}">${item.icon}</span>
+          <div>
+            <p class="text-sm font-semibold text-gray-800">${item.name}</p>
+            <p class="text-xs text-gray-600">${item.reason}</p>
+          </div>
+        `;
+        itemsContainer.appendChild(itemElement);
+      });
+      
+      // オプションアイテムを表示
+      if (itemsData.optional_items.length > 0) {
+        const optionalHeader = document.createElement('div');
+        optionalHeader.className = 'mt-4 pt-3 border-t border-gray-200';
+        optionalHeader.innerHTML = '<p class="text-xs text-gray-500 font-semibold mb-2">おすすめ（任意）</p>';
+        itemsContainer.appendChild(optionalHeader);
+        
+        itemsData.optional_items.forEach(item => {
+          const itemElement = document.createElement('div');
+          itemElement.className = 'flex items-center gap-4 mb-3 opacity-75';
+          itemElement.innerHTML = `
+            <span class="text-2xl" role="img" aria-label="${item.name}">${item.icon}</span>
+            <div>
+              <p class="text-sm text-gray-700">${item.name}</p>
+              <p class="text-xs text-gray-500">${item.reason}</p>
+            </div>
+          `;
+          itemsContainer.appendChild(itemElement);
+        });
+      }
+    }
+
+    // デフォルトの持ち物アドバイスを表示する関数
+    function displayDefaultItemsAdvice() {
+      const itemsContainer = document.getElementById('items-advice');
+      itemsContainer.innerHTML = `
+        <div class="flex items-center gap-4">
+          <span class="text-3xl" role="img" aria-label="umbrella">🌂</span>
+          <p class="text-sm">夕方から雨が降るかも？折りたたみ傘があると安心！</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="text-3xl" role="img" aria-label="sunglasses">🕶️</span>
+          <p class="text-sm">日差しが強いから、UV対策は忘れずにね。</p>
+        </div>
+      `;
     }
 
     // リフレッシュ関数
@@ -313,7 +583,27 @@
     }
 
     // ページ読み込み時にデータを取得
-    document.addEventListener('DOMContentLoaded', fetchAndDisplayData);
+    document.addEventListener('DOMContentLoaded', function() {
+      fetchAndDisplayData();
+      
+      // スタイル選択ボタンのイベントリスナーを追加
+      const styleButtons = document.querySelectorAll('.style-btn');
+      styleButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // アクティブクラスを削除
+          styleButtons.forEach(btn => btn.classList.remove('active'));
+          
+          // クリックされたボタンにアクティブクラスを追加
+          this.classList.add('active');
+          
+          // 選択されたスタイルを更新
+          currentStyle = this.dataset.style;
+          
+          // 服装データを再取得
+          fetchClothingData(currentStyle);
+        });
+      });
+    });
   </script>
   </body>
 </html>

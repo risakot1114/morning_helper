@@ -29,24 +29,32 @@ class WeatherService
   private
   
   def fetch_from_api
-    # 一時的にデモデータを返す（APIキーが有効になるまで）
+    # より現実的なデモデータ（10月の東京の天気）
     return {
       current: {
-        temperature: 22,
-        feels_like: 24,
-        condition: 'sunny',
-        description: '晴れ',
-        icon: '☀️',
-        humidity: 65,
-        wind_speed: 3.2,
-        uv_index: 5
+        temperature: 16,
+        feels_like: 14,
+        condition: 'cloudy',
+        description: '曇り',
+        icon: '☁️',
+        humidity: 78,
+        wind_speed: 4.5,
+        uv_index: 3
       },
       today: {
-        max_temp: 26,
-        min_temp: 18,
-        rain_probability: 10,
-        sunrise: '05:30',
-        sunset: '18:45'
+        max_temp: 19,
+        min_temp: 12,
+        rain_probability: 30,
+        sunrise: '05:45',
+        sunset: '17:30'
+      },
+      location: {
+        name: determine_location_name(@lat, @lon),
+        country: 'JP',
+        coordinates: {
+          lat: @lat,
+          lon: @lon
+        }
       }
     }
     
@@ -132,6 +140,26 @@ class WeatherService
       '🌫️'
     else
       '☁️'
+    end
+  end
+  
+  def determine_location_name(lat, lon)
+    # 座標に基づいて地域名を決定（簡易版）
+    case
+    when lat.between?(35.5, 35.8) && lon.between?(139.5, 139.9)
+      '東京都, 渋谷区'
+    when lat.between?(35.6, 35.7) && lon.between?(139.7, 139.8)
+      '東京都, 新宿区'
+    when lat.between?(35.6, 35.7) && lon.between?(139.7, 139.9)
+      '東京都, 千代田区'
+    when lat.between?(34.6, 34.8) && lon.between?(135.4, 135.6)
+      '大阪府, 大阪市'
+    when lat.between?(35.0, 35.2) && lon.between?(135.7, 135.8)
+      '京都府, 京都市'
+    when lat.between?(43.0, 43.1) && lon.between?(141.3, 141.4)
+      '北海道, 札幌市'
+    else
+      "緯度: #{lat.round(4)}, 経度: #{lon.round(4)}"
     end
   end
 end

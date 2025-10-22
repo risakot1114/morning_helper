@@ -4,6 +4,7 @@ class Api::V1::ApplicationController < ActionController::API
   # 共通のレスポンス形式
   def render_success(data = {}, message = 'Success')
     render json: {
+      status: 'success',
       data: data,
       message: message,
       timestamp: Time.current.iso8601

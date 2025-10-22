@@ -1,16 +1,284 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>MorningHelper</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>今日のコーデ予報 - ポップ&CUTEプロトタイプ</title>
+  
+  <!-- Tailwind CSS を読み込み -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts（M PLUS Rounded 1c）を読み込み -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <style>
+    /* ポップでCUTEなテーマのカスタムスタイル */
+    body {
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 50%, #E0F6FF 100%);
+      background-attachment: fixed;
+      color: #2c3e50;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    /* トイ・ストーリー風の可愛い雲 */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        /* 大きなカートゥーン雲1 - トイ・ストーリー風 */
+        radial-gradient(circle 80px at 15% 25%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.9) 40%, transparent 70%),
+        radial-gradient(circle 60px at 25% 20%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 50%, transparent 80%),
+        radial-gradient(circle 40px at 20% 35%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 60%, transparent 90%),
+        
+        /* 大きなカートゥーン雲2 */
+        radial-gradient(circle 70px at 75% 30%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.9) 40%, transparent 70%),
+        radial-gradient(circle 50px at 85% 25%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 50%, transparent 80%),
+        radial-gradient(circle 35px at 80% 40%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 60%, transparent 90%),
+        
+        /* 中サイズの可愛い雲1 */
+        radial-gradient(circle 50px at 40% 65%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 45%, transparent 75%),
+        radial-gradient(circle 35px at 45% 60%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 55%, transparent 85%),
+        
+        /* 中サイズの可愛い雲2 */
+        radial-gradient(circle 45px at 90% 75%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 45%, transparent 75%),
+        radial-gradient(circle 30px at 95% 70%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 55%, transparent 85%),
+        
+        /* 小さな可愛い雲たち */
+        radial-gradient(circle 30px at 10% 85%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 50%, transparent 80%),
+        radial-gradient(circle 25px at 60% 15%, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.6) 60%, transparent 90%),
+        radial-gradient(circle 20px at 30% 45%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.5) 70%, transparent 100%);
+      animation: toyStoryCloudFloat 35s ease-in-out infinite;
+      z-index: -1;
+    }
+    
+    @keyframes toyStoryCloudFloat {
+      0%, 100% { transform: translateX(0px) translateY(0px) scale(1) rotate(0deg); }
+      20% { transform: translateX(8px) translateY(-3px) scale(1.02) rotate(1deg); }
+      40% { transform: translateX(-5px) translateY(6px) scale(0.98) rotate(-1deg); }
+      60% { transform: translateX(12px) translateY(-8px) scale(1.01) rotate(0.5deg); }
+      80% { transform: translateX(-8px) translateY(4px) scale(0.99) rotate(-0.5deg); }
+    }
+    .card {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.9));
+      border-radius: 2.5rem; /* トイ・ストーリー風の丸角 */
+      padding: 1.8rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 
+        0 12px 30px -8px rgba(135, 206, 235, 0.4),
+        0 6px 20px -4px rgba(176, 224, 230, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.9),
+        0 0 0 1px rgba(255, 255, 255, 0.6);
+      border: 3px solid rgba(255, 255, 255, 0.9);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(15px);
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 
+        0 20px 40px -10px rgba(135, 206, 235, 0.5),
+        0 10px 30px -6px rgba(176, 224, 230, 0.4),
+        inset 0 3px 0 rgba(255, 255, 255, 0.95);
+    }
+    .app-title {
+      color: #2E86AB; /* トイ・ストーリー風のブルー */
+      font-weight: 800;
+      font-size: 1.6rem;
+      text-shadow: 
+        0 3px 6px rgba(255, 255, 255, 0.9),
+        0 1px 3px rgba(46, 134, 171, 0.3);
+      letter-spacing: 0.5px;
+    }
+    .icon-bg {
+      width: 5rem;
+      height: 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(135, 206, 235, 0.2));
+      font-size: 2.8rem;
+      box-shadow: 
+        0 8px 20px -4px rgba(135, 206, 235, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.8);
+      border: 3px solid rgba(255, 255, 255, 0.8);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .plus-icon {
+      color: #87CEEB; /* プラス記号をスカイブルーに */
+      font-size: 2.5rem;
+      font-weight: 300;
+      text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+    }
+    .advice-box {
+      background: linear-gradient(135deg, rgba(135, 206, 235, 0.2), rgba(176, 224, 230, 0.1));
+      color: #4682B4;
+      border-radius: 1rem;
+      padding: 1rem;
+      font-weight: 500;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+    .footer-nav a.active {
+      color: #4682B4;
+    }
+  </style>
+</head>
+<body class="antialiased">
 
-  <body>
-    <%= yield %>
-  </body>
+  <div class="container mx-auto max-w-sm p-4 pb-32">
+
+    <!-- ===== ヘッダー ===== -->
+    <header class="flex justify-between items-center py-4 px-2">
+      <h1 class="app-title">Otenki Coord</h1>
+      <div class="w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md">
+        <span class="text-xl" role="img" aria-label="settings">⚙️</span>
+      </div>
+    </header>
+
+    <main>
+      <!-- ===== 今日の天気エリア ===== -->
+      <section class="card text-center transform -rotate-1">
+        <h2 class="font-bold text-lg text-gray-600" id="location">東京都, 渋谷区</h2>
+        <p class="text-sm text-gray-400 mb-4" id="date">9月23日 (火)</p>
+        
+        <div class="flex justify-center items-center gap-4">
+          <!-- 天気アイコン（絵文字） -->
+          <span class="text-7xl" role="img" aria-label="partly-sunny" id="weather-icon">🌤️</span>
+          <div>
+            <!-- 現在の気温 -->
+            <p class="text-6xl font-bold text-gray-800" id="temperature">23<span class="text-2xl align-top text-gray-500">℃</span></p>
+          </div>
+        </div>
+
+        <div class="mt-4 flex justify-around text-center">
+          <div>
+            <p class="text-sm text-gray-500">最高/最低</p>
+            <p class="font-bold text-gray-700" id="temp-range">25℃ / 18℃</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">降水確率</p>
+            <p class="font-bold text-gray-700" id="rain-probability">20%</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 今日の服装提案エリア ===== -->
+      <section class="card transform rotate-1">
+        <h3 class="font-bold text-lg mb-4 text-center">きょうのコーデ案</h3>
+        <div class="flex justify-around items-center text-center">
+          <!-- 服装アイコン (絵文字) -->
+          <div class="flex flex-col items-center">
+            <div class="icon-bg"><span role="img" aria-label="cardigan" id="clothing-icon-1">🧥</span></div>
+            <p class="text-sm mt-2 font-semibold" id="clothing-name-1">カーデ</p>
+          </div>
+          <span class="plus-icon">+</span>
+          <div class="flex flex-col items-center">
+            <div class="icon-bg"><span role="img" aria-label="t-shirt" id="clothing-icon-2">👕</span></div>
+            <p class="text-sm mt-2 font-semibold" id="clothing-name-2">半袖</p>
+          </div>
+          <span class="plus-icon">+</span>
+          <div class="flex flex-col items-center">
+             <div class="icon-bg"><span role="img" aria-label="jeans" id="clothing-icon-3">👖</span></div>
+            <p class="text-sm mt-2 font-semibold" id="clothing-name-3">長ズボン</p>
+          </div>
+        </div>
+        <p class="mt-6 text-sm advice-box" id="clothing-advice">
+          日中はぽかぽか陽気だけど、夜は肌寒いかも。羽織るものがあると安心だよ！
+        </p>
+      </section>
+
+      <!-- ===== 持ち物アドバイスエリア ===== -->
+      <section class="card transform -rotate-1">
+        <h3 class="font-bold text-lg mb-4">おすすめの持ち物</h3>
+        <div class="space-y-4" id="items-advice">
+          <div class="flex items-center gap-4">
+            <span class="text-3xl" role="img" aria-label="umbrella">🌂</span>
+            <p class="text-sm">夕方から雨が降るかも？折りたたみ傘があると安心！</p>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="text-3xl" role="img" aria-label="sunglasses">🕶️</span>
+            <p class="text-sm">日差しが強いから、UV対策は忘れずにね。</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  
+  <!-- ===== フッターナビゲーション ===== -->
+  <footer class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm max-w-sm mx-auto rounded-t-3xl shadow-lg border-t border-blue-100">
+    <nav class="flex justify-around py-3">
+      <a href="#" class="flex flex-col items-center justify-center text-center w-full py-2 active">
+        <span class="text-2xl" role="img" aria-label="home">🏠</span>
+        <span class="text-xs font-bold">ホーム</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center text-gray-400 text-center w-full py-2">
+        <span class="text-2xl" role="img" aria-label="calendar">🗓️</span>
+        <span class="text-xs">週間</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center text-gray-400 text-center w-full py-2">
+        <span class="text-2xl" role="img" aria-label="people">👨‍👩‍👧‍👦</span>
+        <span class="text-xs">みんな</span>
+      </a>
+      <a href="#" class="flex flex-col items-center justify-center text-gray-400 text-center w-full py-2">
+        <span class="text-2xl" role="img" aria-label="person">🥰</span>
+        <span class="text-xs">マイページ</span>
+      </a>
+    </nav>
+  </footer>
+
+  <script>
+    // データを取得して表示する関数
+    async function fetchAndDisplayData() {
+      try {
+        // 天気データを取得
+        const weatherResponse = await fetch('/api/v1/weather?lat=35.6762&lon=139.6503');
+        const weatherData = await weatherResponse.json();
+        
+        if (weatherData.status === 'success') {
+          // 天気データを表示
+          document.getElementById('weather-icon').textContent = weatherData.data.current.icon;
+          document.getElementById('temperature').innerHTML = weatherData.data.current.temperature + '<span class="text-2xl align-top text-gray-500">℃</span>';
+          document.getElementById('temp-range').textContent = `${weatherData.data.today.max_temp}℃ / ${weatherData.data.today.min_temp}℃`;
+          document.getElementById('rain-probability').textContent = weatherData.data.today.rain_probability + '%';
+          
+          // 服装データを取得
+          const temp = weatherData.data.current.temperature;
+          const clothingResponse = await fetch(`/api/v1/clothing?temperature=${temp}&weather=${weatherData.data.current.condition}`);
+          const clothingData = await clothingResponse.json();
+          
+          if (clothingData.status === 'success') {
+            // 服装データを表示
+            const outfit = clothingData.data.outfit;
+            document.getElementById('clothing-icon-1').textContent = outfit.outer ? '🧥' : '👕';
+            document.getElementById('clothing-name-1').textContent = outfit.outer || outfit.top;
+            document.getElementById('clothing-icon-2').textContent = '👕';
+            document.getElementById('clothing-name-2').textContent = outfit.top;
+            document.getElementById('clothing-icon-3').textContent = '👖';
+            document.getElementById('clothing-name-3').textContent = outfit.bottom;
+            document.getElementById('clothing-advice').textContent = clothingData.data.advice;
+          }
+        }
+      } catch (error) {
+        console.error('データの取得に失敗しました:', error);
+      }
+    }
+
+    // リフレッシュ関数
+    function refreshData() {
+      fetchAndDisplayData();
+    }
+
+    // ページ読み込み時にデータを取得
+    document.addEventListener('DOMContentLoaded', fetchAndDisplayData);
+  </script>
+</body>
 </html>

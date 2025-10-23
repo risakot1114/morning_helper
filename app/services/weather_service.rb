@@ -35,6 +35,35 @@ class WeatherService
     # その他のエラー時はデモデータを返す
     fetch_demo_data
   end
+
+  def weekly_forecast
+    # 週間予報のキャッシュキー生成
+    cache_key = "weekly_weather:#{@lat.round(2)}:#{@lon.round(2)}:#{Date.current.yday}"
+    cached_data = Rails.cache.read(cache_key)
+    
+    if cached_data
+      Rails.logger.info "Weekly weather data retrieved from cache for #{@lat}, #{@lon}"
+      return cached_data
+    end
+    
+    # APIから取得
+    weekly_data = fetch_weekly_from_api
+    
+    # 週間予報は2時間キャッシュ（頻繁に変わらないため）
+    Rails.cache.write(cache_key, weekly_data, expires_in: 2.hours)
+    
+    weekly_data
+  rescue ApiError => e
+    Rails.logger.error "Weekly Weather API Error: #{e.message}"
+    Rails.logger.error "Location: #{@lat}, #{@lon}"
+    # APIエラー時はデモデータを返す
+    fetch_weekly_demo_data
+  rescue StandardError => e
+    Rails.logger.error "Weekly WeatherService Error: #{e.message}"
+    Rails.logger.error "Backtrace: #{e.backtrace.first(5).join(', ')}"
+    # その他のエラー時はデモデータを返す
+    fetch_weekly_demo_data
+  end
   
   private
   
@@ -91,6 +120,42 @@ class WeatherService
       end
       
       parse_weather_response(response.parsed_response)
+    rescue HTTParty::Error => e
+      raise ApiError, "HTTP request failed: #{e.message}"
+    rescue JSON::ParserError => e
+      raise ApiError, "Failed to parse API response: #{e.message}"
+    rescue Net::TimeoutError => e
+      raise ApiError, "API request timeout: #{e.message}"
+    rescue SocketError => e
+      raise ApiError, "Network connection error: #{e.message}"
+    end
+  end
+
+  def fetch_weekly_from_api
+    # APIキーがない場合はエラー
+    raise ApiError, 'OpenWeatherMap API key is not set.' if @api_key.blank?
+
+    # OpenWeatherMap 5日間予報APIのURL
+    url = "https://api.openweathermap.org/data/2.5/forecast"
+    params = {
+      lat: @lat,
+      lon: @lon,
+      appid: @api_key,
+      units: 'metric',
+      lang: 'ja'
+    }
+    
+    Rails.logger.info "Fetching weekly weather data for #{@lat}, #{@lon}"
+    
+    begin
+      response = HTTParty.get(url, query: params, timeout: 10)
+      
+      unless response.success?
+        error_message = response.parsed_response['message'] || response.message
+        raise ApiError, "API request failed with status #{response.code}: #{error_message}"
+      end
+      
+      parse_weekly_response(response.parsed_response)
     rescue HTTParty::Error => e
       raise ApiError, "HTTP request failed: #{e.message}"
     rescue JSON::ParserError => e
@@ -297,5 +362,93 @@ class WeatherService
     else
       "緯度: #{lat.round(4)}, 経度: #{lon.round(4)}"
     end
+  end
+
+  def parse_weekly_response(data)
+    # 5日間の予報データを日別にグループ化
+    daily_forecasts = {}
+    
+    data['list'].each do |forecast|
+      date = Time.at(forecast['dt']).to_date
+      daily_forecasts[date] ||= []
+      daily_forecasts[date] << forecast
+    end
+    
+    # 各日の最高・最低気温と天気を計算
+    weekly_data = daily_forecasts.map do |date, forecasts|
+      temperatures = forecasts.map { |f| f['main']['temp'] }
+      weathers = forecasts.map { |f| f['weather'][0] }
+      
+      # 最も頻繁な天気を選択
+      main_weather = weathers.max_by { |w| weathers.count(w) }
+      
+      {
+        date: date.strftime('%m/%d'),
+        day_of_week: get_day_of_week(date),
+        max_temp: temperatures.max.round,
+        min_temp: temperatures.min.round,
+        condition: map_weather_condition(main_weather['main']),
+        description: main_weather['description'],
+        icon: map_weather_icon(main_weather['icon']),
+        rain_probability: calculate_rain_probability(forecasts)
+      }
+    end
+    
+    # 今日から7日間のデータを返す
+    {
+      location: {
+        name: determine_location_name(@lat, @lon),
+        country: 'JP',
+        coordinates: { lat: @lat, lon: @lon }
+      },
+      weekly_forecast: weekly_data.first(7)
+    }
+  end
+
+  def fetch_weekly_demo_data
+    # 週間予報のデモデータ（10月の東京）
+    today = Date.current
+    weekly_data = (0..6).map do |i|
+      date = today + i.days
+      base_temp = 16 + (i * 2) - (i > 3 ? 4 : 0) # 気温の変化
+      
+      {
+        date: date.strftime('%m/%d'),
+        day_of_week: get_day_of_week(date),
+        max_temp: base_temp + 3,
+        min_temp: base_temp - 3,
+        condition: ['clear', 'cloudy', 'rain'].sample,
+        description: ['晴れ', '曇り', '雨'].sample,
+        icon: ['☀️', '☁️', '🌧️'].sample,
+        rain_probability: rand(0..60)
+      }
+    end
+    
+    {
+      location: {
+        name: determine_location_name(@lat, @lon),
+        country: 'JP',
+        coordinates: { lat: @lat, lon: @lon }
+      },
+      weekly_forecast: weekly_data
+    }
+  end
+
+  def get_day_of_week(date)
+    case date.wday
+    when 0 then '日'
+    when 1 then '月'
+    when 2 then '火'
+    when 3 then '水'
+    when 4 then '木'
+    when 5 then '金'
+    when 6 then '土'
+    end
+  end
+
+  def calculate_rain_probability(forecasts)
+    # 降水確率の計算（簡易版）
+    rain_count = forecasts.count { |f| f['weather'][0]['main'].downcase.include?('rain') }
+    (rain_count.to_f / forecasts.length * 100).round
   end
 end

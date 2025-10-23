@@ -12,7 +12,12 @@
     <!-- ===== 今日の天気エリア ===== -->
     <section class="card transform -rotate-1">
       <div class="mb-4">
-        <p class="text-sm text-gray-500 text-center" id="date">2024年10月22日 火曜日</p>
+        <div class="flex justify-between items-center mb-2">
+          <p class="text-sm text-gray-500" id="date">2024年10月22日 火曜日</p>
+          <button id="weekly-weather-btn" class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-xs font-medium hover:bg-blue-200 transition-colors">
+            週間予報
+          </button>
+        </div>
         <p class="text-sm text-gray-500 text-center" id="location">東京都, 渋谷区</p>
       </div>
       
@@ -45,7 +50,12 @@
 
     <!-- ===== 今日の服装提案エリア ===== -->
     <section class="card transform rotate-1">
-      <h3 class="font-bold text-xl mb-3 text-center">きょうのコーデ案</h3>
+      <div class="flex justify-between items-center mb-3">
+        <h3 class="font-bold text-xl">きょうのコーデ案</h3>
+        <button id="weekly-clothing-btn" class="px-3 py-1 bg-pink-100 text-pink-600 rounded-full text-xs font-medium hover:bg-pink-200 transition-colors">
+          週間コーデ
+        </button>
+      </div>
       
       <!-- スタイル選択ボタン -->
       <div class="flex justify-center gap-1 mb-3">
@@ -269,6 +279,21 @@
     </section>
 
   </main>
+
+  <!-- ===== 週間予報モーダル ===== -->
+  <div id="weekly-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-2xl max-w-md w-full max-h-[80vh] overflow-y-auto">
+        <div class="sticky top-0 bg-white border-b border-gray-200 p-4 flex justify-between items-center">
+          <h2 id="modal-title" class="text-xl font-bold text-gray-800">週間予報</h2>
+          <button id="close-modal" class="text-gray-500 hover:text-gray-700 text-2xl">×</button>
+        </div>
+        <div id="modal-content" class="p-4">
+          <!-- 週間データがここに表示されます -->
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ===== フッターナビゲーション ===== -->
@@ -894,5 +919,171 @@
               console.log('星座タブ設定');
               setupZodiacTabs();
             }, 500);
+          });
+
+          // ===== 週間機能 =====
+          
+          // 週間天気予報を取得する関数
+          async function fetchWeeklyWeather() {
+            if (!userLocation) {
+              console.warn('位置情報がありません');
+              return;
+            }
+
+            try {
+              const response = await fetch(`/api/v1/weather/weekly?lat=${userLocation.lat}&lon=${userLocation.lon}`);
+              const data = await response.json();
+
+              if (data.status === 'success') {
+                displayWeeklyWeather(data.data);
+              }
+            } catch (error) {
+              console.error('週間天気予報の取得に失敗しました:', error);
+            }
+          }
+
+          // 週間服装提案を取得する関数
+          async function fetchWeeklyClothing() {
+            if (!userLocation) {
+              console.warn('位置情報がありません');
+              return;
+            }
+
+            try {
+              const response = await fetch(`/api/v1/clothing/weekly?lat=${userLocation.lat}&lon=${userLocation.lon}&style=${currentStyle}`);
+              const data = await response.json();
+
+              if (data.status === 'success') {
+                displayWeeklyClothing(data.data);
+              }
+            } catch (error) {
+              console.error('週間服装提案の取得に失敗しました:', error);
+            }
+          }
+
+          // 週間天気予報を表示する関数
+          function displayWeeklyWeather(weatherData) {
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            
+            modalTitle.textContent = '週間天気予報';
+            
+            let html = `
+              <div class="mb-4">
+                <p class="text-sm text-gray-500 text-center">${weatherData.location.name}</p>
+              </div>
+              <div class="space-y-3">
+            `;
+            
+            weatherData.weekly_forecast.forEach(day => {
+              html += `
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div class="flex items-center gap-3">
+                    <div class="text-center">
+                      <p class="text-sm font-medium">${day.day_of_week}</p>
+                      <p class="text-xs text-gray-500">${day.date}</p>
+                    </div>
+                    <span class="text-3xl">${day.icon}</span>
+                    <div>
+                      <p class="text-sm font-medium">${day.description}</p>
+                      <p class="text-xs text-gray-500">降水確率 ${day.rain_probability}%</p>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-lg font-bold">${day.max_temp}°</p>
+                    <p class="text-sm text-gray-500">${day.min_temp}°</p>
+                  </div>
+                </div>
+              `;
+            });
+            
+            html += '</div>';
+            modalContent.innerHTML = html;
+            
+            // モーダルを表示
+            document.getElementById('weekly-modal').classList.remove('hidden');
+          }
+
+          // 週間服装提案を表示する関数
+          function displayWeeklyClothing(clothingData) {
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            
+            modalTitle.textContent = '週間コーディネート';
+            
+            let html = `
+              <div class="mb-4">
+                <p class="text-sm text-gray-500 text-center">${clothingData.location.name}</p>
+                <p class="text-sm text-gray-600 text-center mt-2">${clothingData.weekly_summary}</p>
+              </div>
+              <div class="space-y-4">
+            `;
+            
+            clothingData.weekly_outfits.forEach(day => {
+              html += `
+                <div class="p-4 bg-gray-50 rounded-lg">
+                  <div class="flex items-center justify-between mb-3">
+                    <div class="text-center">
+                      <p class="text-sm font-medium">${day.day_of_week}</p>
+                      <p class="text-xs text-gray-500">${day.date}</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-2xl">${day.weather.icon}</span>
+                      <div class="text-right">
+                        <p class="text-sm font-bold">${day.weather.max_temp}°</p>
+                        <p class="text-xs text-gray-500">${day.weather.min_temp}°</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-center gap-3 mb-2">
+                    <span class="text-2xl">${day.outfit.icon}</span>
+                    <div class="flex-1">
+                      <p class="text-sm font-medium">${day.outfit.top}</p>
+                      <p class="text-xs text-gray-500">${day.outfit.bottom}</p>
+                      ${day.outfit.outer ? `<p class="text-xs text-gray-500">${day.outfit.outer}</p>` : ''}
+                    </div>
+                  </div>
+                  
+                  <p class="text-xs text-gray-600 mb-2">${day.advice}</p>
+                  <p class="text-xs text-blue-600">${day.laundry_suggestion}</p>
+                </div>
+              `;
+            });
+            
+            html += '</div>';
+            modalContent.innerHTML = html;
+            
+            // モーダルを表示
+            document.getElementById('weekly-modal').classList.remove('hidden');
+          }
+
+          // イベントリスナーを設定
+          document.addEventListener('DOMContentLoaded', function() {
+            // 週間天気予報ボタン
+            document.getElementById('weekly-weather-btn').addEventListener('click', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              fetchWeeklyWeather();
+            });
+
+            // 週間服装提案ボタン
+            document.getElementById('weekly-clothing-btn').addEventListener('click', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              fetchWeeklyClothing();
+            });
+
+            // モーダルを閉じる
+            document.getElementById('close-modal').addEventListener('click', function() {
+              document.getElementById('weekly-modal').classList.add('hidden');
+            });
+
+            // モーダル外をクリックして閉じる
+            document.getElementById('weekly-modal').addEventListener('click', function(e) {
+              if (e.target === this) {
+                this.classList.add('hidden');
+              }
+            });
           });
 </script>

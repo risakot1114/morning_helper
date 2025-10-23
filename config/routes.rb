@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get 'weather', to: 'weather#show'
+      get 'weather/weekly', to: 'weather#weekly'
       get 'clothing', to: 'clothing#show'
+      get 'clothing/weekly', to: 'weekly_clothing#show'
       get 'items', to: 'items#show'
       get 'pollen', to: 'pollen#show'
       get 'fortune', to: 'fortune#show'

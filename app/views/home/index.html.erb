@@ -919,6 +919,51 @@
               console.log('星座タブ設定');
               setupZodiacTabs();
             }, 500);
+
+            // 週間ボタンのイベントリスナーを設定
+            setTimeout(() => {
+              console.log('週間ボタン設定');
+              
+              // 週間天気予報ボタン
+              const weeklyWeatherBtn = document.getElementById('weekly-weather-btn');
+              if (weeklyWeatherBtn) {
+                weeklyWeatherBtn.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  console.log('週間天気予報ボタンがクリックされました');
+                  fetchWeeklyWeather();
+                });
+              }
+
+              // 週間服装提案ボタン
+              const weeklyClothingBtn = document.getElementById('weekly-clothing-btn');
+              if (weeklyClothingBtn) {
+                weeklyClothingBtn.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  console.log('週間服装提案ボタンがクリックされました');
+                  fetchWeeklyClothing();
+                });
+              }
+
+              // モーダルを閉じる
+              const closeModalBtn = document.getElementById('close-modal');
+              if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', function() {
+                  document.getElementById('weekly-modal').classList.add('hidden');
+                });
+              }
+
+              // モーダル外をクリックして閉じる
+              const weeklyModal = document.getElementById('weekly-modal');
+              if (weeklyModal) {
+                weeklyModal.addEventListener('click', function(e) {
+                  if (e.target === this) {
+                    this.classList.add('hidden');
+                  }
+                });
+              }
+            }, 1000);
           });
 
           // ===== 週間機能 =====
@@ -1058,32 +1103,5 @@
             document.getElementById('weekly-modal').classList.remove('hidden');
           }
 
-          // イベントリスナーを設定
-          document.addEventListener('DOMContentLoaded', function() {
-            // 週間天気予報ボタン
-            document.getElementById('weekly-weather-btn').addEventListener('click', function(e) {
-              e.preventDefault();
-              e.stopPropagation();
-              fetchWeeklyWeather();
-            });
-
-            // 週間服装提案ボタン
-            document.getElementById('weekly-clothing-btn').addEventListener('click', function(e) {
-              e.preventDefault();
-              e.stopPropagation();
-              fetchWeeklyClothing();
-            });
-
-            // モーダルを閉じる
-            document.getElementById('close-modal').addEventListener('click', function() {
-              document.getElementById('weekly-modal').classList.add('hidden');
-            });
-
-            // モーダル外をクリックして閉じる
-            document.getElementById('weekly-modal').addEventListener('click', function(e) {
-              if (e.target === this) {
-                this.classList.add('hidden');
-              }
-            });
           });
 </script>

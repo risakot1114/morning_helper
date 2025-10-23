@@ -207,11 +207,11 @@
   </head>
 <body class="antialiased">
 
-  <div class="container mx-auto max-w-sm p-4 pb-32">
+  <div class="container mx-auto max-w-sm p-4 pb-40">
 
     <!-- ===== ヘッダー ===== -->
     <header class="flex justify-between items-center py-4 px-2">
-      <h1 class="app-title">Otenki Coord</h1>
+                <h1 class="app-title text-pink-300">お天気Coordinate☀️</h1>
       <div class="w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md">
         <span class="text-xl" role="img" aria-label="settings">⚙️</span>
       </div>
@@ -286,26 +286,79 @@
         </p>
       </section>
 
-      <!-- ===== 持ち物アドバイスエリア ===== -->
-      <section class="card transform -rotate-1">
-        <h3 class="font-bold text-lg mb-4">おすすめの持ち物</h3>
-        <div class="space-y-4" id="items-advice">
-          <div class="flex items-center gap-4">
-            <span class="text-3xl" role="img" aria-label="umbrella">🌂</span>
-            <p class="text-sm">夕方から雨が降るかも？折りたたみ傘があると安心！</p>
-          </div>
-          <div class="flex items-center gap-4">
-            <span class="text-3xl" role="img" aria-label="sunglasses">🕶️</span>
-            <p class="text-sm">日差しが強いから、UV対策は忘れずにね。</p>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
+                <!-- ===== 花粉情報エリア ===== -->
+                <section class="card transform rotate-1">
+                    <h3 class="font-bold text-lg mb-4 text-center">🌸 花粉情報</h3>
+                    <div class="text-center mb-4">
+                        <div class="flex justify-center items-center gap-2 mb-2">
+                            <span class="text-3xl" id="pollen-main-icon">🌲</span>
+                            <div>
+                                <p class="text-sm text-gray-500" id="pollen-level-label">花粉レベル</p>
+                                <p class="font-bold text-lg" id="pollen-level">中程度</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600" id="pollen-advice">
+                            花粉が中程度の日です。敏感な方はマスクの着用を検討してください。
+                        </p>
+                    </div>
+                    
+                    <!-- 花粉の種類 -->
+                    <div class="space-y-2 mb-4" id="pollen-types">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xl">🌲</span>
+                                <span class="text-sm">スギ花粉</span>
+                            </div>
+                            <span class="text-sm font-semibold text-orange-600">多い</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xl">🌲</span>
+                                <span class="text-sm">ヒノキ花粉</span>
+                            </div>
+                            <span class="text-sm font-semibold text-yellow-600">中程度</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 3日間の予報 -->
+                    <div class="border-t pt-3">
+                        <p class="text-sm text-gray-500 mb-2 text-center">3日間の予報</p>
+                        <div class="flex justify-around" id="pollen-forecast">
+                            <div class="text-center">
+                                <p class="text-xs text-gray-500">今日</p>
+                                <span class="text-lg">🌲</span>
+                                <p class="text-xs font-semibold text-orange-600">多い</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-xs text-gray-500">明日</p>
+                                <span class="text-lg">🌲</span>
+                                <p class="text-xs font-semibold text-orange-600">多い</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-xs text-gray-500">明後日</p>
+                                <span class="text-lg">🌳</span>
+                                <p class="text-xs font-semibold text-yellow-600">中程度</p>
+                            </div>
+                        </div>
+                    </div>
+                <!-- ===== 持ち物アドバイスエリア ===== -->
+                <section class="card transform -rotate-1">
+                    <h3 class="font-bold text-lg mb-4">おすすめの持ち物</h3>
+                    <div class="space-y-4" id="items-advice">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl" role="img" aria-label="umbrella">🌂</span>
+                            <p class="text-sm">夕方から雨が降るかも？折りたたみ傘があると安心！</p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl" role="img" aria-label="sunglasses">🕶️</span>
+                            <p class="text-sm">日差しが強いから、UV対策は忘れずにね。</p>
+                        </div>
+                    </div>
+                </section>
   
   <!-- ===== フッターナビゲーション ===== -->
-  <footer class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm max-w-sm mx-auto rounded-t-3xl shadow-lg border-t border-blue-100">
-    <nav class="flex justify-around py-3">
+  <footer class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm max-w-sm mx-auto rounded-t-3xl shadow-lg border-t border-blue-100 z-10 h-20">
+    <nav class="flex justify-around py-4">
       <a href="#" class="flex flex-col items-center justify-center text-center w-full py-2 active">
         <span class="text-2xl" role="img" aria-label="home">🏠</span>
         <span class="text-xs font-bold">ホーム</span>
@@ -408,6 +461,14 @@
           // 服装データを取得（現在選択されているスタイルで）
           await fetchClothingData(currentStyle);
           
+          // 花粉情報を取得
+          const pollenResponse = await fetch(`/api/v1/pollen?lat=${location.lat}&lon=${location.lon}`);
+          const pollenData = await pollenResponse.json();
+          
+          if (pollenData.status === 'success') {
+            displayPollenInfo(pollenData.data);
+          }
+          
           // 持ち物アドバイスを取得
           const itemsResponse = await fetch(`/api/v1/items?temperature=${weatherData.data.current.temperature}&weather=${weatherData.data.current.condition}&humidity=${weatherData.data.current.humidity}&wind_speed=${weatherData.data.current.wind_speed}`);
           const itemsData = await itemsResponse.json();
@@ -489,8 +550,9 @@
     
     function getTopIcon(top) {
       if (top.includes('ポロ')) return '🏌️';
-      if (top.includes('ワイシャツ') || top.includes('シャツ')) return '👔';
       if (top.includes('Tシャツ') || top.includes('半袖')) return '👕';
+      if (top.includes('長袖Tシャツ') || top.includes('長袖')) return '🧥';
+      if (top.includes('ワイシャツ') || top.includes('シャツ')) return '👔';
       if (top.includes('セーター')) return '🧶';
       if (top.includes('タンク')) return '🩳';
       return '👕';
@@ -588,8 +650,12 @@
       
       // スタイル選択ボタンのイベントリスナーを追加
       const styleButtons = document.querySelectorAll('.style-btn');
+      console.log('スタイルボタン数:', styleButtons.length);
+      
       styleButtons.forEach(button => {
         button.addEventListener('click', function() {
+          console.log('ボタンがクリックされました:', this.dataset.style);
+          
           // アクティブクラスを削除
           styleButtons.forEach(btn => btn.classList.remove('active'));
           
@@ -598,12 +664,85 @@
           
           // 選択されたスタイルを更新
           currentStyle = this.dataset.style;
+          console.log('現在のスタイル:', currentStyle);
           
           // 服装データを再取得
           fetchClothingData(currentStyle);
         });
       });
     });
-  </script>
+    
+    // 花粉情報を表示する関数
+    function displayPollenInfo(pollenData) {
+      // メインアイコンとレベル
+      document.getElementById('pollen-main-icon').textContent = getPollenMainIcon(pollenData.overall_level);
+      document.getElementById('pollen-level').textContent = getPollenLevelText(pollenData.overall_level);
+      document.getElementById('pollen-advice').textContent = pollenData.advice;
+      
+      // 花粉の種類
+      const pollenTypesContainer = document.getElementById('pollen-types');
+      pollenTypesContainer.innerHTML = '';
+      
+      pollenData.pollen_types.forEach(pollen => {
+        const pollenElement = document.createElement('div');
+        pollenElement.className = 'flex justify-between items-center';
+        pollenElement.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="text-xl">${pollen.icon}</span>
+            <span class="text-sm">${pollen.name}</span>
+          </div>
+          <span class="text-sm font-semibold ${getPollenLevelColor(pollen.level)}">${getPollenLevelText(pollen.level)}</span>
+        `;
+        pollenTypesContainer.appendChild(pollenElement);
+      });
+      
+      // 3日間の予報
+      const forecastContainer = document.getElementById('pollen-forecast');
+      forecastContainer.innerHTML = '';
+      
+      pollenData.forecast.forEach(day => {
+        const forecastElement = document.createElement('div');
+        forecastElement.className = 'text-center';
+        forecastElement.innerHTML = `
+          <p class="text-xs text-gray-500">${day.day}</p>
+          <span class="text-lg">${day.icon}</span>
+          <p class="text-xs font-semibold ${getPollenLevelColor(day.level)}">${getPollenLevelText(day.level)}</p>
+        `;
+        forecastContainer.appendChild(forecastElement);
+      });
+    }
+    
+    // 花粉レベル関連のヘルパー関数
+    function getPollenMainIcon(level) {
+      switch(level) {
+        case 'very_high': return '🌲';
+        case 'high': return '🌲';
+        case 'medium': return '🌳';
+        case 'low': return '🌿';
+        default: return '🌸';
+      }
+    }
+    
+    function getPollenLevelText(level) {
+      switch(level) {
+        case 'very_high': return '非常に多い';
+        case 'high': return '多い';
+        case 'medium': return '中程度';
+        case 'low': return '少ない';
+        case 'very_low': return '非常に少ない';
+        default: return '不明';
+      }
+    }
+    
+    function getPollenLevelColor(level) {
+      switch(level) {
+        case 'very_high': return 'text-red-600';
+        case 'high': return 'text-orange-600';
+        case 'medium': return 'text-yellow-600';
+        case 'low': return 'text-green-600';
+        case 'very_low': return 'text-blue-600';
+        default: return 'text-gray-600';
+      }
+    }
   </body>
 </html>

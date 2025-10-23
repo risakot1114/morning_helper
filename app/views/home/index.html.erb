@@ -1030,8 +1030,27 @@
           
           // 週間ページを表示する関数
           function showWeeklyPage() {
-            document.querySelector('main').classList.add('hidden');
-            document.getElementById('weekly-page').classList.remove('hidden');
+            console.log('showWeeklyPage関数が呼び出されました');
+            
+            const mainElement = document.querySelector('main');
+            const weeklyPageElement = document.getElementById('weekly-page');
+            
+            console.log('main要素:', mainElement);
+            console.log('weekly-page要素:', weeklyPageElement);
+            
+            if (mainElement) {
+              mainElement.classList.add('hidden');
+              console.log('main要素にhiddenクラスを追加しました');
+            } else {
+              console.error('main要素が見つかりません');
+            }
+            
+            if (weeklyPageElement) {
+              weeklyPageElement.classList.remove('hidden');
+              console.log('weekly-page要素からhiddenクラスを削除しました');
+            } else {
+              console.error('weekly-page要素が見つかりません');
+            }
             
             // フッターのタブの状態を更新
             updateFooterTabs('weekly');

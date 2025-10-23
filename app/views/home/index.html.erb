@@ -292,9 +292,6 @@
           <span class="text-2xl mr-2">🌤️</span>
           <h3 class="font-bold text-xl text-center">週間天気予報</h3>
         </div>
-        <div id="weekly-weather-location" class="text-center mb-3">
-          <!-- 地区情報がここに表示されます -->
-        </div>
         <div id="weekly-weather-content" class="min-h-[200px] flex items-center justify-center">
           <div class="text-center text-gray-500">
             <div class="animate-spin text-4xl mb-2">⏳</div>
@@ -308,9 +305,6 @@
         <div class="flex items-center justify-center mb-3">
           <span class="text-2xl mr-2">👗</span>
           <h3 class="font-bold text-xl text-center">週間コーディネート</h3>
-        </div>
-        <div id="weekly-clothing-location" class="text-center mb-3">
-          <!-- 地区情報と一言がここに表示されます -->
         </div>
         
         <!-- スタイル選択ボタン -->
@@ -334,6 +328,11 @@
             <div class="animate-spin text-4xl mb-2">⏳</div>
             <p>週間コーデを読み込み中...</p>
           </div>
+        </div>
+        
+        <!-- 週間アドバイス -->
+        <div id="weekly-clothing-advice" class="mt-4">
+          <!-- 週間アドバイスがここに表示されます -->
         </div>
       </section>
     </div>
@@ -1321,13 +1320,7 @@
 
           // 週間ページ用の天気予報表示関数
           function displayWeeklyWeatherPage(weatherData) {
-            const locationElement = document.getElementById('weekly-weather-location');
             const contentElement = document.getElementById('weekly-weather-content');
-            
-            // 地区情報を上部に表示
-            locationElement.innerHTML = `
-              <p class="text-sm text-gray-500">📍 ${weatherData.location.name}</p>
-            `;
             
             // 天気予報を枠いっぱいに表示
             let html = `
@@ -1362,14 +1355,8 @@
 
           // 週間ページ用の服装提案表示関数
           function displayWeeklyClothingPage(clothingData) {
-            const locationElement = document.getElementById('weekly-clothing-location');
             const contentElement = document.getElementById('weekly-clothing-content');
-            
-            // 地区情報と一言を上部に表示
-            locationElement.innerHTML = `
-              <p class="text-sm text-gray-500 mb-2">📍 ${clothingData.location.name}</p>
-              <p class="text-sm text-pink-600 bg-pink-50 rounded-lg p-2">💡 ${clothingData.weekly_summary}</p>
-            `;
+            const adviceElement = document.getElementById('weekly-clothing-advice');
             
             // コーディネートを横幅いっぱいに表示
             let html = `
@@ -1410,6 +1397,25 @@
             
             html += '</div>';
             contentElement.innerHTML = html;
+            
+            // 週間アドバイスを下部に縦並びで表示
+            if (clothingData.weekly_summary) {
+              const adviceParts = clothingData.weekly_summary.split('。').filter(part => part.trim());
+              let adviceHtml = '<div class="space-y-2">';
+              
+              adviceParts.forEach(part => {
+                if (part.trim()) {
+                  adviceHtml += `
+                    <div class="text-sm text-pink-600 bg-pink-50 rounded-lg p-3 text-center">
+                      💡 ${part.trim()}。
+                    </div>
+                  `;
+                }
+              });
+              
+              adviceHtml += '</div>';
+              adviceElement.innerHTML = adviceHtml;
+            }
           }
 
           // 週間服装提案を表示する関数

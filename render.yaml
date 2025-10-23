@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: morning-helper
+    env: ruby
+    plan: free
+    buildCommand: bundle install && bundle exec rails assets:precompile && bundle exec rails db:migrate
+    startCommand: bundle exec rails server -p $PORT -e production
+    envVars:
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: OPENWEATHER_API_KEY
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: morning-helper-db
+          property: connectionString
+
+databases:
+  - name: morning-helper-db
+    plan: free
+    databaseName: morning_helper_production
+    user: morning_helper_user

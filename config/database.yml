@@ -48,6 +48,4 @@ test:
 #
 production:
   <<: *default
-  database: morning_helper_production
-  username: <%= ENV.fetch("DATABASE_USERNAME", "morning_helper") %>
-  password: <%= ENV["MORNING_HELPER_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>

@@ -16,18 +16,28 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
+  # Redisを使用したキャッシュストア
+  config.cache_store = :redis_cache_store, {
+    url: ENV.fetch('REDIS_URL', 'redis://localhost:6379/0'),
+    expires_in: 1.hour,
+    namespace: 'morning_helper_prod'
+  }
+
   # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
   # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
   # config.require_master_key = true
 
   # Enable static file serving from the `/public` folder (turn off if using NGINX/Apache for it).
-  config.public_file_server.enabled = true
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress CSS using a preprocessor.
-  # config.assets.css_compressor = :sass
+  config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
+
+  # Generate digests for assets URLs.
+  config.assets.digest = true
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
@@ -83,6 +93,17 @@ Rails.application.configure do
 
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
+
+  # ログ設定
+  config.log_level = :info
+  config.log_formatter = proc do |severity, datetime, progname, msg|
+    "#{datetime.strftime('%Y-%m-%d %H:%M:%S')} [#{severity}] #{msg}\n"
+  end
+
+  # ログファイルの設定
+  config.logger = ActiveSupport::Logger.new(Rails.root.join('log', 'production.log'))
+  config.logger.formatter = config.log_formatter
+  config.logger.level = Logger::INFO
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

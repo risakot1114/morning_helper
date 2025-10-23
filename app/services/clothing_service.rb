@@ -7,20 +7,20 @@ class ClothingService
   end
   
   def suggest_outfit
-    # キャッシュから取得を試行
-    cache_key = "clothing_#{@temperature}_#{@weather}_#{@style}_#{@gender}"
+    # より効率的なキャッシュキー生成
+    cache_key = "clothing:#{@temperature}:#{@weather}:#{@style}:#{@gender}:#{Date.current.yday}"
     cached_data = Rails.cache.read(cache_key)
     
     if cached_data
-      Rails.logger.info "Clothing suggestion retrieved from cache"
+      Rails.logger.info "Clothing suggestion retrieved from cache for #{@style} style"
       return cached_data
     end
     
     # 服装提案ロジック
     outfit_data = generate_outfit_suggestion
     
-    # 1時間キャッシュ
-    Rails.cache.write(cache_key, outfit_data, expires_in: 1.hour)
+    # 服装提案は2時間キャッシュ（気温が大きく変わらないため）
+    Rails.cache.write(cache_key, outfit_data, expires_in: 2.hours)
     
     outfit_data
   end
@@ -57,7 +57,7 @@ class ClothingService
   
   def select_business_outfit
     case @temperature
-    when -10..5
+    when -10..8
       {
         top: '厚手ワイシャツ',
         bottom: 'ウールスラックス',
@@ -67,7 +67,17 @@ class ClothingService
         icon: '🧥',
         style: 'business'
       }
-    when 6..15
+    when 9..12
+      {
+        top: 'ワイシャツ',
+        bottom: 'スラックス',
+        outer: 'トレンチコート',
+        shoes: '革靴',
+        accessories: ['ネクタイ'],
+        icon: '🧥',
+        style: 'business'
+      }
+    when 13..18
       {
         top: 'ワイシャツ',
         bottom: 'スラックス',
@@ -77,7 +87,17 @@ class ClothingService
         icon: '👔',
         style: 'business'
       }
-    when 16..25
+    when 19..22
+      {
+        top: 'ワイシャツ',
+        bottom: 'スラックス',
+        outer: 'カーディガン',
+        shoes: '革靴',
+        accessories: ['ネクタイ'],
+        icon: '👔',
+        style: 'business'
+      }
+    else # 23以上
       {
         top: '薄手ワイシャツ',
         bottom: 'スラックス',
@@ -87,22 +107,12 @@ class ClothingService
         icon: '👔',
         style: 'business'
       }
-    else # 26以上
-      {
-        top: 'ポロシャツ',
-        bottom: 'チノパン',
-        outer: nil,
-        shoes: 'ローファー',
-        accessories: [],
-        icon: '👕',
-        style: 'business'
-      }
     end
   end
   
   def select_casual_outfit
     case @temperature
-    when -10..5
+    when -10..8
       {
         top: 'セーター',
         bottom: 'ジーンズ',
@@ -112,17 +122,37 @@ class ClothingService
         icon: '🧥',
         style: 'casual'
       }
-    when 6..15
+    when 9..12
       {
         top: '長袖Tシャツ',
         bottom: 'ジーンズ',
-        outer: 'パーカー',
+        outer: 'ウールコート',
+        shoes: 'スニーカー',
+        accessories: [],
+        icon: '🧥',
+        style: 'casual'
+      }
+    when 13..18
+      {
+        top: '長袖Tシャツ',
+        bottom: 'ジーンズ',
+        outer: 'ジャケット',
         shoes: 'スニーカー',
         accessories: [],
         icon: '👕',
         style: 'casual'
       }
-    when 16..25
+    when 19..22
+      {
+        top: '長袖Tシャツ',
+        bottom: 'ジーンズ',
+        outer: 'カーディガン',
+        shoes: 'スニーカー',
+        accessories: [],
+        icon: '👕',
+        style: 'casual'
+      }
+    else # 23以上
       {
         top: 'Tシャツ',
         bottom: 'ジーンズ',
@@ -132,22 +162,12 @@ class ClothingService
         icon: '👕',
         style: 'casual'
       }
-    else # 26以上
-      {
-        top: 'タンクトップ',
-        bottom: 'ショートパンツ',
-        outer: nil,
-        shoes: 'サンダル',
-        accessories: [],
-        icon: '🩳',
-        style: 'casual'
-      }
     end
   end
   
   def select_child_outfit
     case @temperature
-    when -10..5
+    when -10..8
       {
         top: '長袖シャツ',
         bottom: 'ズボン',
@@ -157,7 +177,17 @@ class ClothingService
         icon: '🧥',
         style: 'child'
       }
-    when 6..15
+    when 9..12
+      {
+        top: '長袖シャツ',
+        bottom: 'ズボン',
+        outer: 'ウインドブレーカー',
+        shoes: '運動靴',
+        accessories: [],
+        icon: '🧥',
+        style: 'child'
+      }
+    when 13..18
       {
         top: '長袖シャツ',
         bottom: 'ズボン',
@@ -167,7 +197,17 @@ class ClothingService
         icon: '👕',
         style: 'child'
       }
-    when 16..25
+    when 19..22
+      {
+        top: '長袖シャツ',
+        bottom: 'ズボン',
+        outer: 'カーディガン',
+        shoes: '運動靴',
+        accessories: [],
+        icon: '👕',
+        style: 'child'
+      }
+    else # 23以上
       {
         top: '半袖シャツ',
         bottom: 'ズボン',
@@ -175,16 +215,6 @@ class ClothingService
         shoes: '運動靴',
         accessories: [],
         icon: '👕',
-        style: 'child'
-      }
-    else # 26以上
-      {
-        top: '半袖シャツ',
-        bottom: '半ズボン',
-        outer: nil,
-        shoes: 'サンダル',
-        accessories: [],
-        icon: '🩳',
         style: 'child'
       }
     end

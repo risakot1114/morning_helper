@@ -23,7 +23,12 @@ Rails.application.configure do
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
-    config.cache_store = :memory_store
+    # Redisを使用したキャッシュストア（本番環境と同じ）
+    config.cache_store = :redis_cache_store, {
+      url: ENV.fetch('REDIS_URL', 'redis://localhost:6379/1'),
+      expires_in: 1.hour,
+      namespace: 'morning_helper_dev'
+    }
     config.public_file_server.headers = {
       "Cache-Control" => "public, max-age=#{2.days.to_i}"
     }
@@ -62,6 +67,16 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  # ログ設定
+  config.log_level = :debug
+  config.log_formatter = proc do |severity, datetime, progname, msg|
+    "#{datetime.strftime('%Y-%m-%d %H:%M:%S')} [#{severity}] #{msg}\n"
+  end
+
+  # ログファイルの設定
+  config.logger = ActiveSupport::Logger.new(Rails.root.join('log', 'development.log'))
+  config.logger.formatter = config.log_formatter
+
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
@@ -75,5 +90,6 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   # OpenWeatherMap API設定
-  ENV['OPENWEATHER_API_KEY'] = 'ec7921a3624d9e05f40c59207977b5ab'
+  # OpenWeatherMap APIキーは環境変数で設定してください
+  # ENV['OPENWEATHER_API_KEY'] = 'your_api_key_here'
 end

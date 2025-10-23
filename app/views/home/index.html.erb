@@ -1,1 +1,898 @@
-<!-- このファイルは application.html.erb に統合されています -->
+        <div class="container mx-auto max-w-sm p-3 pb-24">
+
+  <!-- ===== ヘッダー ===== -->
+  <header class="flex justify-between items-center py-4 px-2">
+    <h1 class="app-title text-pink-300">お天気Coordinate☀️</h1>
+    <div class="w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md">
+      <span class="text-xl" role="img" aria-label="settings">⚙️</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== 今日の天気エリア ===== -->
+    <section class="card transform -rotate-1">
+      <div class="mb-4">
+        <p class="text-sm text-gray-500 text-center" id="date">2024年10月22日 火曜日</p>
+        <p class="text-sm text-gray-500 text-center" id="location">東京都, 渋谷区</p>
+      </div>
+      
+              <!-- 温度と天気アイコンを並べて表示 -->
+              <div class="flex items-center justify-center gap-4 mb-4">
+                <div class="text-6xl font-bold text-gray-700" id="temperature">16<span class="text-2xl align-top text-gray-500">℃</span></div>
+                <span class="text-7xl animate-bounce" role="img" aria-label="weather" id="weather-icon">☁️</span>
+              </div>
+      
+      <div class="text-center mb-3">
+        <p class="text-xl font-semibold text-gray-700 mb-1">曇り</p>
+        <p class="text-base text-gray-600" id="temp-range">19℃ / 12℃</p>
+      </div>
+      
+      <div class="flex justify-around text-center">
+        <div>
+          <p class="text-xs text-gray-500">降水確率</p>
+          <p class="text-lg font-bold text-gray-700" id="rain-probability">20%</p>
+        </div>
+        <div>
+          <p class="text-xs text-gray-500">湿度</p>
+          <p class="text-lg font-bold text-gray-700" id="humidity">78%</p>
+        </div>
+        <div>
+          <p class="text-xs text-gray-500">風速</p>
+          <p class="text-lg font-bold text-gray-700" id="wind-speed">4.5m/s</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 今日の服装提案エリア ===== -->
+    <section class="card transform rotate-1">
+      <h3 class="font-bold text-xl mb-3 text-center">きょうのコーデ案</h3>
+      
+      <!-- スタイル選択ボタン -->
+      <div class="flex justify-center gap-1 mb-3">
+        <button class="style-btn active" data-style="business" id="style-business">
+          <span class="text-xl">👔</span>
+          <span class="text-xs">ビジネス</span>
+        </button>
+        <button class="style-btn" data-style="casual" id="style-casual">
+          <span class="text-xl">👕</span>
+          <span class="text-xs">カジュアル</span>
+        </button>
+        <button class="style-btn" data-style="child" id="style-child">
+          <span class="text-xl">👶</span>
+          <span class="text-xs">キッズ</span>
+        </button>
+      </div>
+      
+      <div class="flex justify-around items-center text-center">
+        <!-- 服装アイコン (絵文字) -->
+        <div class="flex flex-col items-center">
+          <div class="icon-bg"><span role="img" aria-label="cardigan" id="clothing-icon-1">🧥</span></div>
+          <p class="text-xs mt-1 font-semibold" id="clothing-name-1">カーデ</p>
+        </div>
+        <span class="plus-icon">+</span>
+        <div class="flex flex-col items-center">
+          <div class="icon-bg"><span role="img" aria-label="t-shirt" id="clothing-icon-2">👕</span></div>
+          <p class="text-xs mt-1 font-semibold" id="clothing-name-2">半袖</p>
+        </div>
+        <span class="plus-icon">+</span>
+        <div class="flex flex-col items-center">
+          <div class="icon-bg"><span role="img" aria-label="jeans" id="clothing-icon-3">👖</span></div>
+          <p class="text-xs mt-1 font-semibold" id="clothing-name-3">長ズボン</p>
+        </div>
+      </div>
+      <p class="mt-4 text-sm advice-box" id="clothing-advice">
+        日中はぽかぽか陽気だけど、夜は肌寒いかも。羽織るものがあると安心だよ！
+      </p>
+    </section>
+
+    <!-- ===== 持ち物アドバイスエリア ===== -->
+    <section class="card transform -rotate-1">
+      <h3 class="font-bold text-xl mb-3">おすすめの持ち物</h3>
+      <div class="space-y-3" id="items-advice">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl" role="img" aria-label="umbrella">🌂</span>
+          <p class="text-sm font-medium">夕方から雨が降るかも？折りたたみ傘があると安心！</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="text-2xl" role="img" aria-label="sunglasses">🕶️</span>
+          <p class="text-sm font-medium">日差しが強いから、UV対策は忘れずにね。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 花粉情報エリア ===== -->
+    <section class="card transform rotate-1">
+      <h3 class="font-bold text-xl mb-3 text-center">🌸 花粉情報</h3>
+      <div class="text-center mb-4">
+        <div class="flex justify-center items-center gap-2 mb-2">
+          <span class="text-3xl" id="pollen-main-icon">🌲</span>
+          <div>
+            <p class="text-sm text-gray-500" id="pollen-level-label">花粉レベル</p>
+            <p class="font-bold text-lg" id="pollen-level">中程度</p>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600" id="pollen-advice">
+          花粉が中程度の日です。敏感な方はマスクの着用を検討してください。
+        </p>
+      </div>
+
+      <!-- 花粉の種類 -->
+      <div class="space-y-2 mb-4" id="pollen-types">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🌲</span>
+            <span class="text-sm">スギ花粉</span>
+          </div>
+          <span class="text-sm font-semibold text-orange-600">多い</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🌲</span>
+            <span class="text-sm">ヒノキ花粉</span>
+          </div>
+          <span class="text-sm font-semibold text-yellow-600">中程度</span>
+        </div>
+      </div>
+
+      <!-- 3日間の予報 -->
+      <div class="border-t pt-3">
+        <p class="text-sm text-gray-500 mb-2 text-center">3日間の予報</p>
+        <div class="flex justify-around" id="pollen-forecast">
+          <div class="text-center">
+            <p class="text-xs text-gray-500">今日</p>
+            <span class="text-lg">🌲</span>
+            <p class="text-xs font-semibold text-orange-600">多い</p>
+          </div>
+          <div class="text-center">
+            <p class="text-xs text-gray-500">明日</p>
+            <span class="text-lg">🌲</span>
+            <p class="text-xs font-semibold text-orange-600">多い</p>
+          </div>
+          <div class="text-center">
+            <p class="text-xs text-gray-500">明後日</p>
+            <span class="text-lg">🌳</span>
+            <p class="text-xs font-semibold text-yellow-600">中程度</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 今日の占いエリア ===== -->
+    <section class="card transform rotate-1">
+      <h3 class="font-bold text-xl mb-3 text-center">🔮 今日の占い</h3>
+      
+      <!-- 星座選択タブ -->
+      <div class="mb-4">
+        <p class="text-sm text-gray-600 text-center mb-3">あなたの星座を選択してください</p>
+        
+        <!-- タブヘッダー -->
+        <div class="flex overflow-x-auto scrollbar-hide mb-3">
+          <button class="zodiac-tab active" data-zodiac="aries">♈ おひつじ</button>
+          <button class="zodiac-tab" data-zodiac="taurus">♉ おうし</button>
+          <button class="zodiac-tab" data-zodiac="gemini">♊ ふたご</button>
+          <button class="zodiac-tab" data-zodiac="cancer">♋ かに</button>
+          <button class="zodiac-tab" data-zodiac="leo">♌ しし</button>
+          <button class="zodiac-tab" data-zodiac="virgo">♍ おとめ</button>
+          <button class="zodiac-tab" data-zodiac="libra">♎ てんびん</button>
+          <button class="zodiac-tab" data-zodiac="scorpio">♏ さそり</button>
+          <button class="zodiac-tab" data-zodiac="sagittarius">♐ いて</button>
+          <button class="zodiac-tab" data-zodiac="capricorn">♑ やぎ</button>
+          <button class="zodiac-tab" data-zodiac="aquarius">♒ みずがめ</button>
+          <button class="zodiac-tab" data-zodiac="pisces">♓ うお</button>
+        </div>
+        
+        <!-- 選択された星座の詳細表示 -->
+        <div class="text-center" id="selected-zodiac-info" style="display: none;">
+          <div class="bg-gradient-to-r from-pink-100 to-blue-100 rounded-lg p-3">
+            <div class="flex items-center justify-center gap-2 mb-1">
+              <span class="text-2xl" id="zodiac-symbol">♈</span>
+              <span class="font-bold text-lg" id="zodiac-name">おひつじ座</span>
+            </div>
+            <p class="text-sm text-gray-600" id="zodiac-element">火の星座</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 総合運勢 -->
+      <div class="text-center mb-4" id="fortune-content" style="display: none;">
+        <div class="flex justify-center items-center gap-2 mb-2">
+          <span class="text-4xl" id="fortune-overall-icon">🌟</span>
+          <div>
+            <p class="text-sm text-gray-500" id="fortune-overall-label">総合運勢</p>
+            <p class="font-bold text-lg" id="fortune-overall-level">大吉</p>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600" id="fortune-advice">
+          今日は全てが順調！新しいことに挑戦する絶好のチャンスです。
+        </p>
+      </div>
+
+      <!-- 運勢スコア -->
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <div class="text-center">
+          <div class="flex items-center justify-center gap-1 mb-1">
+            <span class="text-xl">🍀</span>
+            <span class="text-sm font-semibold">総合運</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2">
+            <div class="bg-yellow-400 h-2 rounded-full" id="luck-bar" style="width: 85%"></div>
+          </div>
+          <p class="text-xs text-gray-600 mt-1" id="luck-score">85</p>
+        </div>
+        <div class="text-center">
+          <div class="flex items-center justify-center gap-1 mb-1">
+            <span class="text-xl">💕</span>
+            <span class="text-sm font-semibold">恋愛運</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2">
+            <div class="bg-pink-400 h-2 rounded-full" id="love-bar" style="width: 90%"></div>
+          </div>
+          <p class="text-xs text-gray-600 mt-1" id="love-score">90</p>
+        </div>
+        <div class="text-center">
+          <div class="flex items-center justify-center gap-1 mb-1">
+            <span class="text-xl">💼</span>
+            <span class="text-sm font-semibold">仕事運</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2">
+            <div class="bg-blue-400 h-2 rounded-full" id="work-bar" style="width: 72%"></div>
+          </div>
+          <p class="text-xs text-gray-600 mt-1" id="work-score">72</p>
+        </div>
+        <div class="text-center">
+          <div class="flex items-center justify-center gap-1 mb-1">
+            <span class="text-xl">🏥</span>
+            <span class="text-sm font-semibold">健康運</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2">
+            <div class="bg-green-400 h-2 rounded-full" id="health-bar" style="width: 78%"></div>
+          </div>
+          <p class="text-xs text-gray-600 mt-1" id="health-score">78</p>
+        </div>
+      </div>
+
+      <!-- ラッキーアイテム -->
+      <div class="border-t pt-3">
+        <div class="flex justify-around text-center">
+          <div>
+            <p class="text-xs text-gray-500 mb-1">ラッキーカラー</p>
+            <div class="w-8 h-8 rounded-full mx-auto mb-1" id="lucky-color" style="background-color: #ff69b4;"></div>
+            <p class="text-xs font-semibold" id="lucky-color-name">ピンク</p>
+          </div>
+          <div>
+            <p class="text-xs text-gray-500 mb-1">ラッキーアイテム</p>
+            <span class="text-2xl" id="lucky-item-icon">🍀</span>
+            <p class="text-xs font-semibold" id="lucky-item-name">四つ葉のクローバー</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ===== フッターナビゲーション ===== -->
+<footer class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm max-w-sm mx-auto rounded-t-3xl shadow-lg border-t border-blue-100 z-50 h-20">
+  <nav class="flex justify-around py-4">
+    <a href="#" class="flex flex-col items-center justify-center text-center w-full py-2 active">
+      <span class="text-2xl" role="img" aria-label="home">🏠</span>
+      <span class="text-xs font-bold">ホーム</span>
+    </a>
+    <a href="#" class="flex flex-col items-center justify-center text-gray-400 text-center w-full py-2">
+      <span class="text-2xl" role="img" aria-label="calendar">🗓️</span>
+      <span class="text-xs">週間</span>
+    </a>
+    <a href="#" class="flex flex-col items-center justify-center text-gray-400 text-center w-full py-2">
+      <span class="text-2xl" role="img" aria-label="people">👨‍👩‍👧‍👦</span>
+      <span class="text-xs">みんな</span>
+    </a>
+    <a href="#" class="flex flex-col items-center justify-center text-gray-400 text-center w-full py-2">
+      <span class="text-2xl" role="img" aria-label="person">🥰</span>
+      <span class="text-xs">マイページ</span>
+    </a>
+  </nav>
+</footer>
+
+        <script>
+          // グローバル変数
+          let currentWeatherData = null;
+          let currentStyle = 'business';
+          let userLocation = null;
+          let selectedZodiac = null;
+
+  // 現在地を取得する関数
+  function getCurrentLocation() {
+    return new Promise((resolve, reject) => {
+      if (!navigator.geolocation) {
+        reject(new Error('Geolocation is not supported by this browser.'));
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const location = {
+            lat: position.coords.latitude,
+            lon: position.coords.longitude,
+            accuracy: position.coords.accuracy
+          };
+          userLocation = location;
+          resolve(location);
+        },
+        (error) => {
+          console.warn('GPS取得に失敗しました:', error.message);
+          // GPSが利用できない場合は東京の座標を使用
+          const fallbackLocation = {
+            lat: 35.6762,
+            lon: 139.6503,
+            accuracy: null
+          };
+          userLocation = fallbackLocation;
+          resolve(fallbackLocation);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 300000 // 5分間キャッシュ
+        }
+      );
+    });
+  }
+
+  // データを取得して表示する関数
+  async function fetchAndDisplayData() {
+    try {
+      // 現在の日付を表示
+      const today = new Date();
+      const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'short'
+      };
+      const dateString = today.toLocaleDateString('ja-JP', options);
+      document.getElementById('date').textContent = dateString;
+
+      // 現在地を取得
+      const location = await getCurrentLocation();
+      console.log('現在地:', location);
+
+      // 天気データを取得
+      const weatherResponse = await fetch(`/api/v1/weather?lat=${location.lat}&lon=${location.lon}`);
+      const weatherData = await weatherResponse.json();
+
+      if (weatherData.status === 'success') {
+        currentWeatherData = weatherData.data;
+
+        // 天気データを表示
+        const weatherIcon = document.getElementById('weather-icon');
+        weatherIcon.textContent = weatherData.data.current.icon;
+        
+        // 天気に応じてクラスを追加（より詳細な分類）
+        weatherIcon.className = 'text-7xl animate-bounce'; // 携帯最適化
+        
+        // 天気条件に応じたアニメーションクラスを適用
+        const weatherCondition = weatherData.data.current.condition;
+        if (weatherCondition === 'clear' || weatherCondition === 'sunny') {
+          weatherIcon.classList.add('sunny');
+        } else if (weatherCondition === 'clouds' || weatherCondition === 'cloudy') {
+          weatherIcon.classList.add('cloudy');
+        } else if (weatherCondition === 'rain' || weatherCondition === 'drizzle') {
+          weatherIcon.classList.add('rainy');
+        } else if (weatherCondition === 'snow') {
+          weatherIcon.classList.add('snowy');
+        } else if (weatherCondition === 'thunderstorm') {
+          weatherIcon.classList.add('stormy');
+        }
+        
+        document.getElementById('temperature').innerHTML = weatherData.data.current.temperature + '<span class="text-2xl align-top text-gray-500">℃</span>';
+        document.getElementById('temp-range').textContent = `${weatherData.data.today.max_temp}℃ / ${weatherData.data.today.min_temp}℃`;
+        document.getElementById('rain-probability').textContent = weatherData.data.today.rain_probability + '%';
+
+        // 場所の情報を表示
+        if (weatherData.data.location) {
+          document.getElementById('location').textContent = weatherData.data.location.name;
+        }
+        
+        // 服装データを取得（現在選択されているスタイルで）
+        await fetchClothingData(currentStyle);
+        
+        // 花粉情報を取得
+        const pollenResponse = await fetch(`/api/v1/pollen?lat=${location.lat}&lon=${location.lon}`);
+        const pollenData = await pollenResponse.json();
+        
+        if (pollenData.status === 'success') {
+          displayPollenInfo(pollenData.data);
+        }
+        
+        // 占い情報を取得
+        const fortuneResponse = await fetch(`/api/v1/fortune?lat=${location.lat}&lon=${location.lon}`);
+        const fortuneData = await fortuneResponse.json();
+        
+        if (fortuneData.status === 'success') {
+          displayFortuneInfo(fortuneData.data);
+        }
+        
+        // 持ち物アドバイスを取得
+        const itemsResponse = await fetch(`/api/v1/items?temperature=${weatherData.data.current.temperature}&weather=${weatherData.data.current.condition}&humidity=${weatherData.data.current.humidity}&wind_speed=${weatherData.data.current.wind_speed}`);
+        const itemsData = await itemsResponse.json();
+        
+        if (itemsData.status === 'success') {
+          // 持ち物アドバイスを表示
+          displayItemsAdvice(itemsData.data);
+        }
+        
+        // データ取得後にスタイルボタンを再設定
+        setupStyleButtons();
+      }
+    } catch (error) {
+      console.error('データの取得に失敗しました:', error);
+      // エラー時はデフォルトの持ち物アドバイスを表示
+      displayDefaultItemsAdvice();
+    }
+  }
+
+  // 服装データを取得して表示する関数
+  async function fetchClothingData(style) {
+    if (!currentWeatherData) {
+      console.warn('天気データがまだありません。');
+      return;
+    }
+    const temperature = currentWeatherData.current.temperature;
+    const weatherCondition = currentWeatherData.current.condition;
+
+    const clothingResponse = await fetch(`/api/v1/clothing?temperature=${temperature}&weather=${weatherCondition}&style=${style}`);
+    const clothingData = await clothingResponse.json();
+
+    if (clothingData.status === 'success') {
+      displayClothingSuggestion(clothingData.data);
+    }
+  }
+
+  // 服装提案を表示する関数
+  function displayClothingSuggestion(clothingData) {
+    const outfit = clothingData.outfit;
+
+    // アウターがある場合とない場合で表示を分ける
+    if (outfit.outer) {
+      // アウターがある場合: アウター + トップス + ボトムス
+      document.getElementById('clothing-icon-1').textContent = getOuterIcon(outfit.outer);
+      document.getElementById('clothing-name-1').textContent = outfit.outer;
+      document.getElementById('clothing-icon-2').textContent = getTopIcon(outfit.top);
+      document.getElementById('clothing-name-2').textContent = outfit.top;
+      document.getElementById('clothing-icon-3').textContent = getBottomIcon(outfit.bottom);
+      document.getElementById('clothing-name-3').textContent = outfit.bottom;
+    } else {
+      // アウターがない場合: トップス + ボトムス + 靴 or アクセサリー
+      document.getElementById('clothing-icon-1').textContent = getTopIcon(outfit.top);
+      document.getElementById('clothing-name-1').textContent = outfit.top;
+      document.getElementById('clothing-icon-2').textContent = getBottomIcon(outfit.bottom);
+      document.getElementById('clothing-name-2').textContent = outfit.bottom;
+
+      if (outfit.shoes) {
+        document.getElementById('clothing-icon-3').textContent = getShoesIcon(outfit.shoes);
+        document.getElementById('clothing-name-3').textContent = outfit.shoes;
+      } else if (outfit.accessories && outfit.accessories.length > 0) {
+        document.getElementById('clothing-icon-3').textContent = getAccessoryIcon(outfit.accessories[0]);
+        document.getElementById('clothing-name-3').textContent = outfit.accessories[0];
+      } else {
+        document.getElementById('clothing-icon-3').textContent = '✨';
+        document.getElementById('clothing-name-3').textContent = '快適';
+      }
+    }
+
+    document.getElementById('clothing-advice').textContent = clothingData.advice;
+  }
+
+  // 持ち物アドバイスを表示する関数
+  function displayItemsAdvice(itemsData) {
+    const itemsAdviceContainer = document.getElementById('items-advice');
+    itemsAdviceContainer.innerHTML = ''; // 既存の内容をクリア
+
+    // 必須アイテム
+    itemsData.essential_items.forEach(item => {
+      const itemElement = document.createElement('div');
+      itemElement.className = 'flex items-center gap-4';
+      itemElement.innerHTML = `<span class="text-3xl" role="img">${item.icon}</span><p class="text-sm">${item.reason}</p>`;
+      itemsAdviceContainer.appendChild(itemElement);
+    });
+
+    // オプションアイテム
+    itemsData.optional_items.forEach(item => {
+      const itemElement = document.createElement('div');
+      itemElement.className = 'flex items-center gap-4';
+      itemElement.innerHTML = `<span class="text-3xl" role="img">${item.icon}</span><p class="text-sm">${item.reason}</p>`;
+      itemsAdviceContainer.appendChild(itemElement);
+    });
+
+    if (itemsData.essential_items.length === 0 && itemsData.optional_items.length === 0) {
+      const noItemElement = document.createElement('div');
+      noItemElement.className = 'flex items-center gap-4';
+      noItemElement.innerHTML = `<span class="text-3xl" role="img">👍</span><p class="text-sm">特に必要な持ち物はありません。</p>`;
+      itemsAdviceContainer.appendChild(noItemElement);
+    }
+  }
+
+  // デフォルトの持ち物アドバイスを表示する関数 (APIエラー時など)
+  function displayDefaultItemsAdvice() {
+    const itemsAdviceContainer = document.getElementById('items-advice');
+    itemsAdviceContainer.innerHTML = `
+      <div class="flex items-center gap-4">
+        <span class="text-3xl" role="img">🤔</span>
+        <p class="text-sm">持ち物情報が取得できませんでした。一般的なアドバイス：水分補給を忘れずに！</p>
+      </div>
+    `;
+  }
+
+  // アイコンを取得するヘルパー関数（シンプルな絵文字に戻す）
+  function getOuterIcon(outer) {
+    if (outer.includes('ウールコート') || outer.includes('トレンチコート')) return '🧥';
+    if (outer.includes('ダウンジャケット')) return '🧥';
+    if (outer.includes('ブレザー')) return '👔';
+    if (outer.includes('ジャケット')) return '🧥';
+    if (outer.includes('ウインドブレーカー')) return '🧥';
+    if (outer.includes('カーディガン')) return '🧶';
+    return '🧥';
+  }
+
+  function getTopIcon(top) {
+    if (top.includes('ポロ')) return '🏌️';
+    if (top.includes('Tシャツ') || top.includes('半袖')) return '👕';
+    if (top.includes('長袖Tシャツ') || top.includes('長袖')) return '👕';
+    if (top.includes('ワイシャツ') || top.includes('シャツ')) return '👔';
+    if (top.includes('セーター')) return '🧶';
+    if (top.includes('タンク')) return '🩳';
+    return '👕';
+  }
+
+  function getBottomIcon(bottom) {
+    if (bottom.includes('スラックス') || bottom.includes('ズボン')) return '👖';
+    if (bottom.includes('ジーンズ')) return '👖';
+    if (bottom.includes('チノ')) return '👖';
+    if (bottom.includes('半ズボン') || bottom.includes('ショート')) return '🩳';
+    return '👖';
+  }
+
+  function getShoesIcon(shoes) {
+    if (shoes.includes('革靴')) return '👞';
+    if (shoes.includes('スニーカー')) return '👟';
+    if (shoes.includes('ブーツ')) return '👢';
+    if (shoes.includes('サンダル')) return '🩴';
+    if (shoes.includes('運動靴')) return '👟';
+    return '👟';
+  }
+
+  function getAccessoryIcon(accessory) {
+    if (accessory.includes('ネクタイ')) return '👔';
+    if (accessory.includes('マフラー')) return '🧣';
+    if (accessory.includes('手袋')) return '🧤';
+    if (accessory.includes('ニット帽')) return '🧢';
+    return '✨';
+  }
+
+  // 花粉情報を表示する関数
+  function displayPollenInfo(pollenData) {
+    // メインアイコンとレベル
+    document.getElementById('pollen-main-icon').textContent = getPollenMainIcon(pollenData.overall_level);
+    document.getElementById('pollen-level').textContent = getPollenLevelText(pollenData.overall_level);
+    document.getElementById('pollen-advice').textContent = pollenData.advice;
+
+    // 花粉の種類
+    const pollenTypesContainer = document.getElementById('pollen-types');
+    pollenTypesContainer.innerHTML = '';
+
+    pollenData.pollen_types.forEach(pollen => {
+      const pollenElement = document.createElement('div');
+      pollenElement.className = 'flex justify-between items-center';
+      pollenElement.innerHTML = `
+        <div class="flex items-center gap-2">
+          <span class="text-xl">${pollen.icon}</span>
+          <span class="text-sm">${pollen.name}</span>
+        </div>
+        <span class="text-sm font-semibold ${getPollenLevelColor(pollen.level)}">${getPollenLevelText(pollen.level)}</span>
+      `;
+      pollenTypesContainer.appendChild(pollenElement);
+    });
+
+    // 3日間の予報
+    const forecastContainer = document.getElementById('pollen-forecast');
+    forecastContainer.innerHTML = '';
+
+    pollenData.forecast.forEach(day => {
+      const forecastElement = document.createElement('div');
+      forecastElement.className = 'text-center';
+      forecastElement.innerHTML = `
+        <p class="text-xs text-gray-500">${day.day}</p>
+        <span class="text-lg">${day.icon}</span>
+        <p class="text-xs font-semibold ${getPollenLevelColor(day.level)}">${getPollenLevelText(day.level)}</p>
+      `;
+      forecastContainer.appendChild(forecastElement);
+    });
+  }
+
+  // 花粉レベル関連のヘルパー関数
+  function getPollenMainIcon(level) {
+    switch(level) {
+      case 'very_high': return '🌲';
+      case 'high': return '🌲';
+      case 'medium': return '🌳';
+      case 'low': return '🌿';
+      default: return '🌸';
+    }
+  }
+
+  function getPollenLevelText(level) {
+    switch(level) {
+      case 'very_high': return '非常に多い';
+      case 'high': return '多い';
+      case 'medium': return '中程度';
+      case 'low': return '少ない';
+      case 'very_low': return '非常に少ない';
+      default: return '不明';
+    }
+  }
+
+  function getPollenLevelColor(level) {
+    switch(level) {
+      case 'very_high': return 'text-red-600';
+      case 'high': return 'text-orange-600';
+      case 'medium': return 'text-yellow-600';
+      case 'low': return 'text-green-600';
+      case 'very_low': return 'text-blue-600';
+      default: return 'text-gray-600';
+    }
+  }
+
+  // 占い情報を表示する関数
+  function displayFortuneInfo(fortuneData) {
+    // 総合運勢
+    document.getElementById('fortune-overall-icon').textContent = getFortuneOverallIcon(fortuneData.overall_level);
+    document.getElementById('fortune-overall-level').textContent = getFortuneOverallText(fortuneData.overall_level);
+    document.getElementById('fortune-advice').textContent = fortuneData.advice;
+
+    // 運勢スコア
+    document.getElementById('luck-score').textContent = fortuneData.scores.luck;
+    document.getElementById('love-score').textContent = fortuneData.scores.love;
+    document.getElementById('work-score').textContent = fortuneData.scores.work;
+    document.getElementById('health-score').textContent = fortuneData.scores.health;
+
+    // プログレスバー
+    document.getElementById('luck-bar').style.width = fortuneData.scores.luck + '%';
+    document.getElementById('love-bar').style.width = fortuneData.scores.love + '%';
+    document.getElementById('work-bar').style.width = fortuneData.scores.work + '%';
+    document.getElementById('health-bar').style.width = fortuneData.scores.health + '%';
+
+    // ラッキーアイテム
+    document.getElementById('lucky-color').style.backgroundColor = getColorCode(fortuneData.lucky_color);
+    document.getElementById('lucky-color-name').textContent = fortuneData.lucky_color;
+    document.getElementById('lucky-item-icon').textContent = getItemIcon(fortuneData.lucky_item);
+    document.getElementById('lucky-item-name').textContent = fortuneData.lucky_item;
+  }
+
+  // 占い関連のヘルパー関数
+  function getFortuneOverallIcon(level) {
+    switch(level) {
+      case 'excellent': return '🌟';
+      case 'good': return '✨';
+      case 'average': return '😊';
+      case 'poor': return '😐';
+      default: return '😔';
+    }
+  }
+
+  function getFortuneOverallText(level) {
+    switch(level) {
+      case 'excellent': return '大吉';
+      case 'good': return '吉';
+      case 'average': return '中吉';
+      case 'poor': return '小吉';
+      default: return '凶';
+    }
+  }
+
+  function getColorCode(colorName) {
+    const colors = {
+      'ピンク': '#ff69b4',
+      'ゴールド': '#ffd700',
+      'レッド': '#ff0000',
+      'オレンジ': '#ffa500',
+      'ローズ': '#ff69b4',
+      'ラベンダー': '#e6e6fa',
+      'コーラル': '#ff7f50',
+      'ブルー': '#0000ff',
+      'ネイビー': '#000080',
+      'シルバー': '#c0c0c0',
+      'グレー': '#808080',
+      'グリーン': '#008000',
+      'エメラルド': '#50c878',
+      'ターコイズ': '#40e0d0',
+      'ミント': '#98fb98'
+    };
+    return colors[colorName] || '#ff69b4';
+  }
+
+  function getItemIcon(itemName) {
+    const icons = {
+      '四つ葉のクローバー': '🍀',
+      '招き猫': '🐱',
+      'お守り': '🔮',
+      'クリスタル': '💎',
+      'ハートのアクセサリー': '💖',
+      'バラの花': '🌹',
+      'ピンクの石': '💎',
+      'ロマンチックな香り': '🌸',
+      'ペン': '✏️',
+      'ノート': '📝',
+      '名刺入れ': '💼',
+      '時計': '⌚',
+      'ハーブティー': '🍵',
+      'エッセンシャルオイル': '🧴',
+      'ヨガマット': '🧘',
+      'ウォーターボトル': '💧'
+    };
+    return icons[itemName] || '🍀';
+  }
+
+  // リフレッシュ関数
+  function refreshData() {
+    fetchAndDisplayData();
+  }
+
+  // スタイル選択ボタンのイベントリスナーを設定する関数
+  function setupStyleButtons() {
+    const styleButtons = document.querySelectorAll('.style-btn');
+    console.log('スタイルボタン数:', styleButtons.length);
+    
+    if (styleButtons.length === 0) {
+      console.log('スタイルボタンが見つかりません');
+      // 少し遅延して再試行
+      setTimeout(() => {
+        setupStyleButtons();
+      }, 500);
+      return;
+    }
+    
+    styleButtons.forEach((button, index) => {
+      console.log(`ボタン${index + 1}:`, button.dataset.style);
+      
+      // 既存のイベントリスナーを削除
+      button.removeEventListener('click', handleStyleButtonClick);
+      // 新しいイベントリスナーを追加
+      button.addEventListener('click', handleStyleButtonClick);
+      
+      // テスト用：ボタンがクリック可能か確認
+      button.style.pointerEvents = 'auto';
+      button.style.cursor = 'pointer';
+    });
+  }
+  
+  // スタイルボタンクリックハンドラー
+  function handleStyleButtonClick(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    console.log('ボタンがクリックされました:', this.dataset.style);
+    
+    // アクティブクラスを削除
+    const styleButtons = document.querySelectorAll('.style-btn');
+    styleButtons.forEach(btn => btn.classList.remove('active'));
+    
+    // クリックされたボタンにアクティブクラスを追加
+    this.classList.add('active');
+    
+    // 選択されたスタイルを更新
+    currentStyle = this.dataset.style;
+    console.log('現在のスタイル:', currentStyle);
+    
+    // 服装データを再取得
+    fetchClothingData(currentStyle);
+  }
+  
+          // 星座タブのイベントリスナーを設定
+          function setupZodiacTabs() {
+            const zodiacTabs = document.querySelectorAll('.zodiac-tab');
+            console.log('星座タブ数:', zodiacTabs.length);
+
+            zodiacTabs.forEach((tab) => {
+              tab.addEventListener('click', function() {
+                // 全てのタブからactiveクラスを削除
+                zodiacTabs.forEach(t => t.classList.remove('active'));
+                
+                // クリックされたタブにactiveクラスを追加
+                this.classList.add('active');
+                
+                // 選択された星座を保存
+                selectedZodiac = this.dataset.zodiac;
+                console.log('選択された星座:', selectedZodiac);
+                
+                // 星座詳細情報を表示
+                displayZodiacInfo(selectedZodiac);
+                
+                // 占いコンテンツを表示
+                document.getElementById('fortune-content').style.display = 'block';
+                
+                // 星座占いを取得
+                fetchZodiacFortune(selectedZodiac);
+              });
+            });
+          }
+
+          // 星座詳細情報を表示する関数
+          function displayZodiacInfo(zodiac) {
+            const zodiacData = getZodiacInfo(zodiac);
+            
+            document.getElementById('zodiac-symbol').textContent = zodiacData.symbol;
+            document.getElementById('zodiac-name').textContent = zodiacData.name;
+            document.getElementById('zodiac-element').textContent = zodiacData.element;
+            
+            document.getElementById('selected-zodiac-info').style.display = 'block';
+          }
+
+          // 星座情報を取得する関数
+          function getZodiacInfo(zodiac) {
+            const zodiacInfo = {
+              aries: { symbol: '♈', name: 'おひつじ座', element: '火の星座' },
+              taurus: { symbol: '♉', name: 'おうし座', element: '土の星座' },
+              gemini: { symbol: '♊', name: 'ふたご座', element: '風の星座' },
+              cancer: { symbol: '♋', name: 'かに座', element: '水の星座' },
+              leo: { symbol: '♌', name: 'しし座', element: '火の星座' },
+              virgo: { symbol: '♍', name: 'おとめ座', element: '土の星座' },
+              libra: { symbol: '♎', name: 'てんびん座', element: '風の星座' },
+              scorpio: { symbol: '♏', name: 'さそり座', element: '水の星座' },
+              sagittarius: { symbol: '♐', name: 'いて座', element: '火の星座' },
+              capricorn: { symbol: '♑', name: 'やぎ座', element: '土の星座' },
+              aquarius: { symbol: '♒', name: 'みずがめ座', element: '風の星座' },
+              pisces: { symbol: '♓', name: 'うお座', element: '水の星座' }
+            };
+            
+            return zodiacInfo[zodiac] || { symbol: '⭐', name: '不明', element: '?' };
+          }
+
+          // 星座占いを取得する関数
+          async function fetchZodiacFortune(zodiac) {
+            if (!userLocation) {
+              console.warn('位置情報がありません');
+              return;
+            }
+
+            try {
+              const fortuneResponse = await fetch(`/api/v1/fortune?lat=${userLocation.lat}&lon=${userLocation.lon}&zodiac=${zodiac}`);
+              const fortuneData = await fortuneResponse.json();
+
+              if (fortuneData.status === 'success') {
+                displayFortuneInfo(fortuneData.data);
+              }
+            } catch (error) {
+              console.error('星座占いの取得に失敗しました:', error);
+            }
+          }
+
+          // ページ読み込み時にデータを取得
+          document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOMContentLoaded イベントが発生しました');
+
+            // データを取得
+            fetchAndDisplayData();
+
+            // 複数回に分けてスタイルボタンを設定
+            setTimeout(() => {
+              console.log('1回目のスタイルボタン設定');
+              setupStyleButtons();
+            }, 100);
+
+            setTimeout(() => {
+              console.log('2回目のスタイルボタン設定');
+              setupStyleButtons();
+            }, 1000);
+
+            setTimeout(() => {
+              console.log('3回目のスタイルボタン設定');
+              setupStyleButtons();
+            }, 2000);
+
+            // 星座タブを設定
+            setTimeout(() => {
+              console.log('星座タブ設定');
+              setupZodiacTabs();
+            }, 500);
+          });
+</script>

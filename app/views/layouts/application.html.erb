@@ -13,6 +13,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
 
+  <!-- パフォーマンス最適化 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#87CEEB">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="お天気Coordinate">
+
   <style>
     /* ポップでCUTEなテーマのカスタムスタイル */
     body {
@@ -49,118 +56,227 @@
         radial-gradient(ellipse 50px 35px at 53% 12%, rgba(255, 255, 255, 0.89) 0%, rgba(255, 255, 255, 0.68) 50%, transparent 90%),
         
         /* 大きな雲4 - 自然な雲の形 */
-        radial-gradient(ellipse 95px 68px at 30% 35%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.9) 30%, transparent 70%),
-        radial-gradient(ellipse 75px 48px at 27% 37%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 40%, transparent 80%),
-        radial-gradient(ellipse 55px 38px at 33% 37%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 50%, transparent 90%),
+        radial-gradient(ellipse 95px 70px at 30% 35%, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.87) 30%, transparent 70%),
+        radial-gradient(ellipse 75px 50px at 27% 38%, rgba(255, 255, 255, 0.93) 0%, rgba(255, 255, 255, 0.77) 40%, transparent 80%),
+        radial-gradient(ellipse 55px 40px at 33% 38%, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.67) 50%, transparent 90%),
         
         /* 大きな雲5 - 自然な雲の形 */
-        radial-gradient(ellipse 88px 62px at 85% 43%, rgba(255, 255, 255, 0.97) 0%, rgba(255, 255, 255, 0.88) 30%, transparent 70%),
-        radial-gradient(ellipse 68px 42px at 89% 46%, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.78) 40%, transparent 80%),
-        radial-gradient(ellipse 48px 32px at 82% 46%, rgba(255, 255, 255, 0.89) 0%, rgba(255, 255, 255, 0.68) 50%, transparent 90%),
-        radial-gradient(ellipse 80px 55px at 25% 60%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 35%, transparent 75%),
-        radial-gradient(ellipse 60px 40px at 13% 55%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.75) 45%, transparent 85%),
+        radial-gradient(ellipse 90px 65px at 70% 40%, rgba(255, 255, 255, 0.97) 0%, rgba(255, 255, 255, 0.88) 30%, transparent 70%),
+        radial-gradient(ellipse 70px 45px at 67% 43%, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.78) 40%, transparent 80%),
+        radial-gradient(ellipse 50px 35px at 73% 43%, rgba(255, 255, 255, 0.89) 0%, rgba(255, 255, 255, 0.68) 50%, transparent 90%),
         
-        /* 大きな雲6 - 下部左 */
-        radial-gradient(ellipse 100px 70px at 15% 75%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.9) 30%, transparent 70%),
-        radial-gradient(ellipse 80px 50px at 12% 78%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 40%, transparent 80%),
-        radial-gradient(ellipse 60px 40px at 18% 78%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 50%, transparent 90%),
+        /* 大きな雲6 - 自然な雲の形 */
+        radial-gradient(ellipse 100px 75px at 10% 60%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.89) 30%, transparent 70%),
+        radial-gradient(ellipse 80px 55px at 7% 63%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.79) 40%, transparent 80%),
+        radial-gradient(ellipse 60px 45px at 13% 63%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.69) 50%, transparent 90%),
         
-        /* 大きな雲7 - 下部中央左 */
-        radial-gradient(ellipse 100px 70px at 35% 80%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.9) 30%, transparent 70%),
-        radial-gradient(ellipse 80px 50px at 32% 83%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 40%, transparent 80%),
-        radial-gradient(ellipse 60px 40px at 38% 83%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 50%, transparent 90%),
+        /* 大きな雲7 - 自然な雲の形 */
+        radial-gradient(ellipse 95px 70px at 85% 65%, rgba(255, 255, 255, 0.97) 0%, rgba(255, 255, 255, 0.88) 30%, transparent 70%),
+        radial-gradient(ellipse 75px 50px at 82% 68%, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.78) 40%, transparent 80%),
+        radial-gradient(ellipse 55px 40px at 88% 68%, rgba(255, 255, 255, 0.89) 0%, rgba(255, 255, 255, 0.68) 50%, transparent 90%),
         
-        /* 大きな雲8 - 下部中央右 */
-        radial-gradient(ellipse 100px 70px at 55% 85%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.9) 30%, transparent 70%),
-        radial-gradient(ellipse 80px 50px at 52% 88%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 40%, transparent 80%),
-        radial-gradient(ellipse 60px 40px at 58% 82%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 50%, transparent 90%),
-        
-        /* 大きな雲9 - 下部右 */
-        radial-gradient(ellipse 100px 70px at 75% 78%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.9) 30%, transparent 70%),
-        radial-gradient(ellipse 80px 50px at 72% 81%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 40%, transparent 80%),
-        radial-gradient(ellipse 60px 40px at 78% 81%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 50%, transparent 90%),
-        
-        /* 大きな雲10 - 下部右端 */
-        radial-gradient(ellipse 100px 70px at 95% 82%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.9) 30%, transparent 70%),
-        radial-gradient(ellipse 80px 50px at 92% 85%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 40%, transparent 80%),
-        radial-gradient(ellipse 60px 40px at 98% 85%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 50%, transparent 90%),
-        radial-gradient(ellipse 75px 50px at 73% 57%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 35%, transparent 75%),
-        radial-gradient(ellipse 55px 35px at 70% 60%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.75) 45%, transparent 85%),
-        
-        /* 小さな雲たち - 自然な形 */
-        radial-gradient(ellipse 50px 35px at 10% 80%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.75) 40%, transparent 80%),
-        radial-gradient(ellipse 40px 30px at 60% 15%, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.7) 45%, transparent 85%),
-        radial-gradient(ellipse 35px 25px at 10% 57%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.65) 50%, transparent 90%);
-      animation: clearCloudFloat 40s ease-in-out infinite;
+        /* 大きな雲8 - 自然な雲の形 */
+        radial-gradient(ellipse 85px 60px at 45% 80%, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.87) 30%, transparent 70%),
+        radial-gradient(ellipse 65px 45px at 42% 83%, rgba(255, 255, 255, 0.93) 0%, rgba(255, 255, 255, 0.77) 40%, transparent 80%),
+        radial-gradient(ellipse 50px 35px at 48% 83%, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.67) 50%, transparent 90%);
       z-index: -1;
+      pointer-events: none;
     }
     
-    @keyframes clearCloudFloat {
-      0%, 100% { transform: translateX(0px) translateY(0px) scale(1); }
-      25% { transform: translateX(10px) translateY(-5px) scale(1.01); }
-      50% { transform: translateX(-8px) translateY(8px) scale(0.99); }
-      75% { transform: translateX(12px) translateY(-6px) scale(1.005); }
+    /* フリー素材アイコンのスタイル */
+    .clothing-icon {
+      width: 2rem;
+      height: 2rem;
+      fill: currentColor;
     }
-    .card {
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.9));
-      border-radius: 2.5rem; /* トイ・ストーリー風の丸角 */
-      padding: 1.8rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 
-        0 12px 30px -8px rgba(135, 206, 235, 0.4),
-        0 6px 20px -4px rgba(176, 224, 230, 0.3),
-        inset 0 2px 0 rgba(255, 255, 255, 0.9),
-        0 0 0 1px rgba(255, 255, 255, 0.6);
-      border: 3px solid rgba(255, 255, 255, 0.9);
+    
+    .clothing-icon-svg {
+      display: inline-block;
+      width: 1.6rem;
+      height: 1.6rem;
+      vertical-align: middle;
+    }
+    
+    /* 星座タブのスタイル */
+    .zodiac-tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.8rem 0.8rem 0 0;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.6), rgba(135, 206, 235, 0.1));
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-bottom: none;
+      color: #666;
+      font-weight: 500;
+      font-size: 0.7rem;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      backdrop-filter: blur(15px);
+      cursor: pointer;
+      min-width: 4rem;
+      flex-shrink: 0;
+      box-shadow: 0 -2px 8px -2px rgba(135, 206, 235, 0.1);
       position: relative;
     }
+
+    .zodiac-tab:hover {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(135, 206, 235, 0.2));
+      transform: translateY(-2px);
+      box-shadow: 0 -4px 12px -2px rgba(135, 206, 235, 0.2);
+    }
+
+    .zodiac-tab.active {
+      background: linear-gradient(145deg, rgba(70, 130, 180, 0.2), rgba(135, 206, 235, 0.3));
+      color: #4682B4;
+      border-color: rgba(70, 130, 180, 0.4);
+      border-bottom: 2px solid rgba(70, 130, 180, 0.4);
+      box-shadow:
+        0 -4px 12px -2px rgba(70, 130, 180, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      z-index: 10;
+    }
+
+    .zodiac-tab.active:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(145deg, rgba(70, 130, 180, 0.3), rgba(135, 206, 235, 0.4));
+    }
+
+    /* スクロールバーを隠す */
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* 星座選択ボタンのスタイル */
+    .zodiac-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 0.25rem;
+      border-radius: 0.8rem;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(135, 206, 235, 0.1));
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      color: #666;
+      font-weight: 500;
+      font-size: 0.75rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      min-height: 3rem;
+      box-shadow: 0 2px 8px -2px rgba(135, 206, 235, 0.2);
+    }
+
+    .zodiac-btn:hover {
+      transform: translateY(-1px) scale(1.02);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(135, 206, 235, 0.2));
+      box-shadow: 0 4px 12px -2px rgba(135, 206, 235, 0.3);
+    }
+
+    .zodiac-btn.active {
+      background: linear-gradient(145deg, rgba(70, 130, 180, 0.2), rgba(135, 206, 235, 0.3));
+      color: #4682B4;
+      border-color: rgba(70, 130, 180, 0.4);
+      box-shadow:
+        0 4px 12px -2px rgba(70, 130, 180, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    .zodiac-btn.active:hover {
+      transform: translateY(-1px) scale(1.02);
+      background: linear-gradient(145deg, rgba(70, 130, 180, 0.3), rgba(135, 206, 235, 0.4));
+    }
+    
+    /* アプリタイトルのスタイル */
+    .app-title {
+      font-size: 2rem; /* 携帯で見やすく */
+      font-weight: 800;
+      text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+      letter-spacing: -0.02em;
+    }
+    
+    /* カードのスタイル */
+    .card {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+      backdrop-filter: blur(10px);
+      border-radius: 1.5rem; /* 携帯に最適化 */
+      padding: 1.2rem; /* パディングを少し小さく */
+      margin-bottom: 1.2rem; /* マージンを少し小さく */
+      box-shadow: 
+        0 8px 32px rgba(135, 206, 235, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transform-origin: center center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: cardFloat 6s ease-in-out infinite;
+    }
+
     .card:hover {
       transform: translateY(-8px) scale(1.02);
       box-shadow: 
-        0 20px 40px -10px rgba(135, 206, 235, 0.5),
-        0 10px 30px -6px rgba(176, 224, 230, 0.4),
-        inset 0 3px 0 rgba(255, 255, 255, 0.95);
+        0 16px 48px rgba(135, 206, 235, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      border-color: rgba(135, 206, 235, 0.5);
     }
-    .app-title {
-      color: #2E86AB; /* トイ・ストーリー風のブルー */
-      font-weight: 800;
-      font-size: 1.6rem;
-      text-shadow: 
-        0 3px 6px rgba(255, 255, 255, 0.9),
-        0 1px 3px rgba(46, 134, 171, 0.3);
-      letter-spacing: 0.5px;
+
+    .card.rotate-1 {
+      transform: rotate(1deg);
+      animation-delay: 0.5s;
     }
+
+    .card.-rotate-1 {
+      transform: rotate(-1deg);
+      animation-delay: 1s;
+    }
+
+    .card.rotate-1:hover,
+    .card.-rotate-1:hover {
+      transform: translateY(-8px) scale(1.02) rotate(0deg);
+    }
+
+    @keyframes cardFloat {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+    
+    /* アイコンの背景 */
     .icon-bg {
-      width: 5rem;
-      height: 5rem;
+      width: 3.2rem; /* 携帯に最適化 */
+      height: 3.2rem;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(135, 206, 235, 0.2));
+      border-radius: 1.2rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 50%;
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(135, 206, 235, 0.2));
-      font-size: 2.8rem;
+      font-size: 1.6rem; /* アイコンサイズを調整 */
       box-shadow: 
-        0 8px 20px -4px rgba(135, 206, 235, 0.3),
-        inset 0 2px 0 rgba(255, 255, 255, 0.8);
-      border: 3px solid rgba(255, 255, 255, 0.8);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        0 4px 12px rgba(135, 206, 235, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.6);
     }
+    
+    /* プラス記号のスタイル */
     .plus-icon {
       color: #87CEEB; /* プラス記号をスカイブルーに */
-      font-size: 2.5rem;
+      font-size: 2rem; /* 携帯に最適化 */
       font-weight: 300;
       text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
     }
     .advice-box {
       background: linear-gradient(135deg, rgba(135, 206, 235, 0.2), rgba(176, 224, 230, 0.1));
       color: #4682B4;
-      border-radius: 1rem;
-      padding: 1rem;
+      border-radius: 0.8rem; /* 携帯に最適化 */
+      padding: 0.8rem; /* パディングを小さく */
       font-weight: 500;
       border: 1px solid rgba(255, 255, 255, 0.6);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      font-size: 0.875rem; /* 文字サイズを少し小さく */
     }
     .footer-nav a.active {
       color: #4682B4;
@@ -172,15 +288,15 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 0.5rem 0.75rem;
-      border-radius: 1rem;
+      padding: 0.4rem 0.6rem; /* 携帯に最適化 */
+      border-radius: 0.8rem;
       background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(135, 206, 235, 0.1));
       border: 2px solid rgba(255, 255, 255, 0.6);
       color: #666;
       font-weight: 500;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
-      min-width: 4rem;
+      min-width: 3.5rem; /* 携帯に最適化 */
       box-shadow: 0 4px 12px -4px rgba(135, 206, 235, 0.2);
     }
     
@@ -203,546 +319,200 @@
       transform: translateY(-2px) scale(1.05);
       background: linear-gradient(145deg, rgba(70, 130, 180, 0.3), rgba(135, 206, 235, 0.4));
     }
+    
+            /* 天気アイコンの動的アニメーション */
+            #weather-icon {
+              filter: drop-shadow(0 4px 8px rgba(255, 182, 193, 0.4));
+              transition: all 0.3s ease;
+              animation: weatherFloat 3s ease-in-out infinite;
+            }
+
+            #weather-icon:hover {
+              transform: scale(1.1) rotate(5deg);
+              filter: drop-shadow(0 6px 12px rgba(255, 182, 193, 0.6));
+            }
+
+            /* 天気別の特別なアニメーション */
+            #weather-icon.sunny {
+              animation: sunnySpin 4s linear infinite;
+            }
+
+            #weather-icon.cloudy {
+              animation: cloudyFloat 3s ease-in-out infinite;
+            }
+
+            #weather-icon.rainy {
+              animation: rainyBounce 2s ease-in-out infinite;
+            }
+
+            #weather-icon.snowy {
+              animation: snowyFall 3s ease-in-out infinite;
+            }
+
+            #weather-icon.stormy {
+              animation: stormyShake 1.5s ease-in-out infinite;
+            }
+
+            /* アニメーション定義 */
+            @keyframes weatherFloat {
+              0%, 100% {
+                transform: translateY(0px);
+              }
+              50% {
+                transform: translateY(-8px);
+              }
+            }
+
+            @keyframes sunnySpin {
+              0% { 
+                transform: rotate(0deg) scale(1); 
+                filter: drop-shadow(0 4px 8px rgba(255, 215, 0, 0.4));
+              }
+              50% { 
+                transform: rotate(180deg) scale(1.1); 
+                filter: drop-shadow(0 6px 12px rgba(255, 215, 0, 0.6));
+              }
+              100% { 
+                transform: rotate(360deg) scale(1); 
+                filter: drop-shadow(0 4px 8px rgba(255, 215, 0, 0.4));
+              }
+            }
+
+            @keyframes cloudyFloat {
+              0%, 100% { 
+                transform: translateY(0px) translateX(0px); 
+                filter: drop-shadow(0 4px 8px rgba(192, 192, 192, 0.4));
+              }
+              25% { 
+                transform: translateY(-5px) translateX(3px); 
+                filter: drop-shadow(0 6px 10px rgba(192, 192, 192, 0.5));
+              }
+              50% { 
+                transform: translateY(-8px) translateX(0px); 
+                filter: drop-shadow(0 8px 12px rgba(192, 192, 192, 0.6));
+              }
+              75% { 
+                transform: translateY(-5px) translateX(-3px); 
+                filter: drop-shadow(0 6px 10px rgba(192, 192, 192, 0.5));
+              }
+            }
+
+            @keyframes rainyBounce {
+              0%, 100% { 
+                transform: translateY(0px); 
+                filter: drop-shadow(0 4px 8px rgba(135, 206, 235, 0.4));
+              }
+              50% { 
+                transform: translateY(-10px); 
+                filter: drop-shadow(0 8px 16px rgba(135, 206, 235, 0.6));
+              }
+            }
+
+            @keyframes snowyFall {
+              0%, 100% { 
+                transform: translateY(0px) rotate(0deg); 
+                filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 0.4));
+              }
+              25% { 
+                transform: translateY(-8px) rotate(5deg); 
+                filter: drop-shadow(0 6px 12px rgba(255, 255, 255, 0.5));
+              }
+              50% { 
+                transform: translateY(-12px) rotate(0deg); 
+                filter: drop-shadow(0 8px 16px rgba(255, 255, 255, 0.6));
+              }
+              75% { 
+                transform: translateY(-8px) rotate(-5deg); 
+                filter: drop-shadow(0 6px 12px rgba(255, 255, 255, 0.5));
+              }
+            }
+
+            @keyframes stormyShake {
+              0%, 100% { 
+                transform: translateX(0px) rotate(0deg); 
+                filter: drop-shadow(0 4px 8px rgba(105, 105, 105, 0.4));
+              }
+              25% { 
+                transform: translateX(-3px) rotate(-2deg); 
+                filter: drop-shadow(0 6px 12px rgba(105, 105, 105, 0.5));
+              }
+              50% { 
+                transform: translateX(3px) rotate(2deg); 
+                filter: drop-shadow(0 8px 16px rgba(105, 105, 105, 0.6));
+              }
+              75% { 
+                transform: translateX(-2px) rotate(-1deg); 
+                filter: drop-shadow(0 6px 12px rgba(105, 105, 105, 0.5));
+              }
+            }
+
+            /* ローディングアニメーション */
+            .loading-spinner {
+              display: inline-block;
+              width: 2rem;
+              height: 2rem;
+              border: 3px solid rgba(135, 206, 235, 0.3);
+              border-radius: 50%;
+              border-top-color: #87CEEB;
+              animation: spin 1s ease-in-out infinite;
+            }
+
+            @keyframes spin {
+              to { transform: rotate(360deg); }
+            }
+
+            .loading-dots {
+              display: inline-block;
+            }
+
+            .loading-dots::after {
+              content: '';
+              animation: dots 1.5s steps(4, end) infinite;
+            }
+
+            @keyframes dots {
+              0%, 20% { content: ''; }
+              40% { content: '.'; }
+              60% { content: '..'; }
+              80%, 100% { content: '...'; }
+            }
+    
+    /* 温度の可愛いスタイル */
+    #temperature {
+      background: linear-gradient(135deg, rgba(255, 182, 193, 0.2), rgba(255, 255, 255, 0.8));
+      border-radius: 2rem;
+      padding: 1rem 1.5rem;
+      box-shadow: 
+        0 8px 32px rgba(255, 182, 193, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.9);
+      border: 2px solid rgba(255, 182, 193, 0.4);
+      transition: all 0.3s ease;
+      animation: temperatureGlow 2s ease-in-out infinite;
+    }
+    
+    #temperature:hover {
+      transform: scale(1.05);
+      box-shadow: 
+        0 12px 40px rgba(255, 182, 193, 0.4),
+        inset 0 2px 0 rgba(255, 255, 255, 0.9);
+    }
+    
+    @keyframes temperatureGlow {
+      0%, 100% {
+        box-shadow: 
+          0 8px 32px rgba(255, 182, 193, 0.3),
+          inset 0 2px 0 rgba(255, 255, 255, 0.9);
+      }
+      50% {
+        box-shadow: 
+          0 8px 32px rgba(255, 182, 193, 0.5),
+          inset 0 2px 0 rgba(255, 255, 255, 0.9),
+          0 0 20px rgba(255, 182, 193, 0.3);
+      }
+    }
   </style>
   </head>
 <body class="antialiased">
-
-  <div class="container mx-auto max-w-sm p-4 pb-40">
-
-    <!-- ===== ヘッダー ===== -->
-    <header class="flex justify-between items-center py-4 px-2">
-                <h1 class="app-title text-pink-300">お天気Coordinate☀️</h1>
-      <div class="w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md">
-        <span class="text-xl" role="img" aria-label="settings">⚙️</span>
-      </div>
-    </header>
-
-    <main>
-      <!-- ===== 今日の天気エリア ===== -->
-      <section class="card text-center transform -rotate-1">
-        <h2 class="font-bold text-lg text-gray-600" id="location">東京都, 渋谷区</h2>
-        <p class="text-sm text-gray-400 mb-4" id="date">9月23日 (火)</p>
-        
-        <div class="flex justify-center items-center gap-4">
-          <!-- 天気アイコン（絵文字） -->
-          <span class="text-7xl" role="img" aria-label="partly-sunny" id="weather-icon">🌤️</span>
-          <div>
-            <!-- 現在の気温 -->
-            <p class="text-6xl font-bold text-gray-800" id="temperature">23<span class="text-2xl align-top text-gray-500">℃</span></p>
-          </div>
-        </div>
-
-        <div class="mt-4 flex justify-around text-center">
-          <div>
-            <p class="text-sm text-gray-500">最高/最低</p>
-            <p class="font-bold text-gray-700" id="temp-range">25℃ / 18℃</p>
-          </div>
-          <div>
-            <p class="text-sm text-gray-500">降水確率</p>
-            <p class="font-bold text-gray-700" id="rain-probability">20%</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== 今日の服装提案エリア ===== -->
-      <section class="card transform rotate-1">
-        <h3 class="font-bold text-lg mb-4 text-center">きょうのコーデ案</h3>
-        
-        <!-- スタイル選択ボタン -->
-        <div class="flex justify-center gap-2 mb-4">
-          <button class="style-btn active" data-style="business" id="style-business">
-            <span class="text-lg">👔</span>
-            <span class="text-xs">ビジネス</span>
-          </button>
-          <button class="style-btn" data-style="casual" id="style-casual">
-            <span class="text-lg">👕</span>
-            <span class="text-xs">カジュアル</span>
-          </button>
-          <button class="style-btn" data-style="child" id="style-child">
-            <span class="text-lg">👶</span>
-            <span class="text-xs">キッズ</span>
-          </button>
-        </div>
-        
-        <div class="flex justify-around items-center text-center">
-          <!-- 服装アイコン (絵文字) -->
-          <div class="flex flex-col items-center">
-            <div class="icon-bg"><span role="img" aria-label="cardigan" id="clothing-icon-1">🧥</span></div>
-            <p class="text-sm mt-2 font-semibold" id="clothing-name-1">カーデ</p>
-          </div>
-          <span class="plus-icon">+</span>
-          <div class="flex flex-col items-center">
-            <div class="icon-bg"><span role="img" aria-label="t-shirt" id="clothing-icon-2">👕</span></div>
-            <p class="text-sm mt-2 font-semibold" id="clothing-name-2">半袖</p>
-          </div>
-          <span class="plus-icon">+</span>
-          <div class="flex flex-col items-center">
-             <div class="icon-bg"><span role="img" aria-label="jeans" id="clothing-icon-3">👖</span></div>
-            <p class="text-sm mt-2 font-semibold" id="clothing-name-3">長ズボン</p>
-          </div>
-        </div>
-        <p class="mt-6 text-sm advice-box" id="clothing-advice">
-          日中はぽかぽか陽気だけど、夜は肌寒いかも。羽織るものがあると安心だよ！
-        </p>
-      </section>
-
-                <!-- ===== 花粉情報エリア ===== -->
-                <section class="card transform rotate-1">
-                    <h3 class="font-bold text-lg mb-4 text-center">🌸 花粉情報</h3>
-                    <div class="text-center mb-4">
-                        <div class="flex justify-center items-center gap-2 mb-2">
-                            <span class="text-3xl" id="pollen-main-icon">🌲</span>
-                            <div>
-                                <p class="text-sm text-gray-500" id="pollen-level-label">花粉レベル</p>
-                                <p class="font-bold text-lg" id="pollen-level">中程度</p>
-                            </div>
-                        </div>
-                        <p class="text-sm text-gray-600" id="pollen-advice">
-                            花粉が中程度の日です。敏感な方はマスクの着用を検討してください。
-                        </p>
-                    </div>
-                    
-                    <!-- 花粉の種類 -->
-                    <div class="space-y-2 mb-4" id="pollen-types">
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-2">
-                                <span class="text-xl">🌲</span>
-                                <span class="text-sm">スギ花粉</span>
-                            </div>
-                            <span class="text-sm font-semibold text-orange-600">多い</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-2">
-                                <span class="text-xl">🌲</span>
-                                <span class="text-sm">ヒノキ花粉</span>
-                            </div>
-                            <span class="text-sm font-semibold text-yellow-600">中程度</span>
-                        </div>
-                    </div>
-                    
-                    <!-- 3日間の予報 -->
-                    <div class="border-t pt-3">
-                        <p class="text-sm text-gray-500 mb-2 text-center">3日間の予報</p>
-                        <div class="flex justify-around" id="pollen-forecast">
-                            <div class="text-center">
-                                <p class="text-xs text-gray-500">今日</p>
-                                <span class="text-lg">🌲</span>
-                                <p class="text-xs font-semibold text-orange-600">多い</p>
-                            </div>
-                            <div class="text-center">
-                                <p class="text-xs text-gray-500">明日</p>
-                                <span class="text-lg">🌲</span>
-                                <p class="text-xs font-semibold text-orange-600">多い</p>
-                            </div>
-                            <div class="text-center">
-                                <p class="text-xs text-gray-500">明後日</p>
-                                <span class="text-lg">🌳</span>
-                                <p class="text-xs font-semibold text-yellow-600">中程度</p>
-                            </div>
-                        </div>
-                    </div>
-                <!-- ===== 持ち物アドバイスエリア ===== -->
-                <section class="card transform -rotate-1">
-                    <h3 class="font-bold text-lg mb-4">おすすめの持ち物</h3>
-                    <div class="space-y-4" id="items-advice">
-                        <div class="flex items-center gap-4">
-                            <span class="text-3xl" role="img" aria-label="umbrella">🌂</span>
-                            <p class="text-sm">夕方から雨が降るかも？折りたたみ傘があると安心！</p>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="text-3xl" role="img" aria-label="sunglasses">🕶️</span>
-                            <p class="text-sm">日差しが強いから、UV対策は忘れずにね。</p>
-                        </div>
-                    </div>
-                </section>
-  
-  <!-- ===== フッターナビゲーション ===== -->
-  <footer class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm max-w-sm mx-auto rounded-t-3xl shadow-lg border-t border-blue-100 z-10 h-20">
-    <nav class="flex justify-around py-4">
-      <a href="#" class="flex flex-col items-center justify-center text-center w-full py-2 active">
-        <span class="text-2xl" role="img" aria-label="home">🏠</span>
-        <span class="text-xs font-bold">ホーム</span>
-      </a>
-      <a href="#" class="flex flex-col items-center justify-center text-gray-400 text-center w-full py-2">
-        <span class="text-2xl" role="img" aria-label="calendar">🗓️</span>
-        <span class="text-xs">週間</span>
-      </a>
-      <a href="#" class="flex flex-col items-center justify-center text-gray-400 text-center w-full py-2">
-        <span class="text-2xl" role="img" aria-label="people">👨‍👩‍👧‍👦</span>
-        <span class="text-xs">みんな</span>
-      </a>
-      <a href="#" class="flex flex-col items-center justify-center text-gray-400 text-center w-full py-2">
-        <span class="text-2xl" role="img" aria-label="person">🥰</span>
-        <span class="text-xs">マイページ</span>
-      </a>
-    </nav>
-  </footer>
-
-  <script>
-    // グローバル変数
-    let currentWeatherData = null;
-    let currentStyle = 'business';
-    let userLocation = null;
-    
-    // 現在地を取得する関数
-    function getCurrentLocation() {
-      return new Promise((resolve, reject) => {
-        if (!navigator.geolocation) {
-          reject(new Error('Geolocation is not supported by this browser.'));
-          return;
-        }
-        
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const location = {
-              lat: position.coords.latitude,
-              lon: position.coords.longitude,
-              accuracy: position.coords.accuracy
-            };
-            userLocation = location;
-            resolve(location);
-          },
-          (error) => {
-            console.warn('GPS取得に失敗しました:', error.message);
-            // GPSが利用できない場合は東京の座標を使用
-            const fallbackLocation = {
-              lat: 35.6762,
-              lon: 139.6503,
-              accuracy: null
-            };
-            userLocation = fallbackLocation;
-            resolve(fallbackLocation);
-          },
-          {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 300000 // 5分間キャッシュ
-          }
-        );
-      });
-    }
-    
-    // データを取得して表示する関数
-    async function fetchAndDisplayData() {
-      try {
-        // 現在の日付を表示
-        const today = new Date();
-        const options = { 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric',
-          weekday: 'short'
-        };
-        const dateString = today.toLocaleDateString('ja-JP', options);
-        document.getElementById('date').textContent = dateString;
-        
-        // 現在地を取得
-        const location = await getCurrentLocation();
-        console.log('現在地:', location);
-        
-        // 天気データを取得
-        const weatherResponse = await fetch(`/api/v1/weather?lat=${location.lat}&lon=${location.lon}`);
-        const weatherData = await weatherResponse.json();
-        
-        if (weatherData.status === 'success') {
-          currentWeatherData = weatherData.data;
-          
-          // 天気データを表示
-          document.getElementById('weather-icon').textContent = weatherData.data.current.icon;
-          document.getElementById('temperature').innerHTML = weatherData.data.current.temperature + '<span class="text-2xl align-top text-gray-500">℃</span>';
-          document.getElementById('temp-range').textContent = `${weatherData.data.today.max_temp}℃ / ${weatherData.data.today.min_temp}℃`;
-          document.getElementById('rain-probability').textContent = weatherData.data.today.rain_probability + '%';
-          
-          // 場所の情報を表示
-          if (weatherData.data.location) {
-            document.getElementById('location').textContent = weatherData.data.location.name;
-          }
-          
-          // 服装データを取得（現在選択されているスタイルで）
-          await fetchClothingData(currentStyle);
-          
-          // 花粉情報を取得
-          const pollenResponse = await fetch(`/api/v1/pollen?lat=${location.lat}&lon=${location.lon}`);
-          const pollenData = await pollenResponse.json();
-          
-          if (pollenData.status === 'success') {
-            displayPollenInfo(pollenData.data);
-          }
-          
-          // 持ち物アドバイスを取得
-          const itemsResponse = await fetch(`/api/v1/items?temperature=${weatherData.data.current.temperature}&weather=${weatherData.data.current.condition}&humidity=${weatherData.data.current.humidity}&wind_speed=${weatherData.data.current.wind_speed}`);
-          const itemsData = await itemsResponse.json();
-          
-          if (itemsData.status === 'success') {
-            // 持ち物アドバイスを表示
-            displayItemsAdvice(itemsData.data);
-          }
-        }
-      } catch (error) {
-        console.error('データの取得に失敗しました:', error);
-        // エラー時はデフォルトの持ち物アドバイスを表示
-        displayDefaultItemsAdvice();
-      }
-    }
-    
-    // 服装データを取得する関数
-    async function fetchClothingData(style) {
-      if (!currentWeatherData) return;
-      
-      try {
-        const temp = currentWeatherData.current.temperature;
-        const clothingResponse = await fetch(`/api/v1/clothing?temperature=${temp}&weather=${currentWeatherData.current.condition}&style=${style}`);
-        const clothingData = await clothingResponse.json();
-        
-        if (clothingData.status === 'success') {
-          // 服装データを表示
-          displayClothingData(clothingData.data);
-        }
-      } catch (error) {
-        console.error('服装データの取得に失敗しました:', error);
-      }
-    }
-    
-    // 服装データを表示する関数
-    function displayClothingData(clothingData) {
-      const outfit = clothingData.outfit;
-      
-      // アウターがある場合とない場合で表示を分ける
-      if (outfit.outer) {
-        // アウターがある場合: アウター + トップス + ボトムス
-        document.getElementById('clothing-icon-1').textContent = getOuterIcon(outfit.outer);
-        document.getElementById('clothing-name-1').textContent = outfit.outer;
-        document.getElementById('clothing-icon-2').textContent = getTopIcon(outfit.top);
-        document.getElementById('clothing-name-2').textContent = outfit.top;
-        document.getElementById('clothing-icon-3').textContent = getBottomIcon(outfit.bottom);
-        document.getElementById('clothing-name-3').textContent = outfit.bottom;
-      } else {
-        // アウターがない場合: トップス + ボトムス + 靴/アクセサリー
-        document.getElementById('clothing-icon-1').textContent = getTopIcon(outfit.top);
-        document.getElementById('clothing-name-1').textContent = outfit.top;
-        document.getElementById('clothing-icon-2').textContent = getBottomIcon(outfit.bottom);
-        document.getElementById('clothing-name-2').textContent = outfit.bottom;
-        
-        // 3番目は靴やアクセサリーを表示
-        if (outfit.shoes) {
-          document.getElementById('clothing-icon-3').textContent = getShoesIcon(outfit.shoes);
-          document.getElementById('clothing-name-3').textContent = outfit.shoes;
-        } else if (outfit.accessories && outfit.accessories.length > 0) {
-          document.getElementById('clothing-icon-3').textContent = getAccessoryIcon(outfit.accessories[0]);
-          document.getElementById('clothing-name-3').textContent = outfit.accessories[0];
-        } else {
-          document.getElementById('clothing-icon-3').textContent = '✨';
-          document.getElementById('clothing-name-3').textContent = '快適';
-        }
-      }
-      
-      document.getElementById('clothing-advice').textContent = clothingData.advice;
-    }
-    
-    // アイコンを取得するヘルパー関数
-    function getOuterIcon(outer) {
-      if (outer.includes('コート')) return '🧥';
-      if (outer.includes('ジャケット') || outer.includes('ブレザー')) return '👔';
-      if (outer.includes('パーカー')) return '🧥';
-      if (outer.includes('ダウン')) return '🧥';
-      return '🧥';
-    }
-    
-    function getTopIcon(top) {
-      if (top.includes('ポロ')) return '🏌️';
-      if (top.includes('Tシャツ') || top.includes('半袖')) return '👕';
-      if (top.includes('長袖Tシャツ') || top.includes('長袖')) return '🧥';
-      if (top.includes('ワイシャツ') || top.includes('シャツ')) return '👔';
-      if (top.includes('セーター')) return '🧶';
-      if (top.includes('タンク')) return '🩳';
-      return '👕';
-    }
-    
-    function getBottomIcon(bottom) {
-      if (bottom.includes('スラックス') || bottom.includes('ズボン')) return '👖';
-      if (bottom.includes('ジーンズ')) return '👖';
-      if (bottom.includes('チノ')) return '👖';
-      if (bottom.includes('半ズボン') || bottom.includes('ショート')) return '🩳';
-      return '👖';
-    }
-    
-    function getShoesIcon(shoes) {
-      if (shoes.includes('革靴')) return '👞';
-      if (shoes.includes('ローファー')) return '👞';
-      if (shoes.includes('スニーカー') || shoes.includes('運動靴')) return '👟';
-      if (shoes.includes('ブーツ')) return '👢';
-      if (shoes.includes('サンダル')) return '🩴';
-      return '👟';
-    }
-    
-    function getAccessoryIcon(accessory) {
-      if (accessory.includes('マフラー')) return '🧣';
-      if (accessory.includes('手袋')) return '🧤';
-      if (accessory.includes('ネクタイ')) return '👔';
-      if (accessory.includes('帽子') || accessory.includes('ニット帽')) return '👒';
-      return '🧣';
-    }
-
-    // 持ち物アドバイスを表示する関数
-    function displayItemsAdvice(itemsData) {
-      const itemsContainer = document.getElementById('items-advice');
-      itemsContainer.innerHTML = '';
-      
-      // 必須アイテムを表示
-      itemsData.essential_items.forEach(item => {
-        const itemElement = document.createElement('div');
-        itemElement.className = 'flex items-center gap-4 mb-3';
-        itemElement.innerHTML = `
-          <span class="text-3xl" role="img" aria-label="${item.name}">${item.icon}</span>
-          <div>
-            <p class="text-sm font-semibold text-gray-800">${item.name}</p>
-            <p class="text-xs text-gray-600">${item.reason}</p>
-          </div>
-        `;
-        itemsContainer.appendChild(itemElement);
-      });
-      
-      // オプションアイテムを表示
-      if (itemsData.optional_items.length > 0) {
-        const optionalHeader = document.createElement('div');
-        optionalHeader.className = 'mt-4 pt-3 border-t border-gray-200';
-        optionalHeader.innerHTML = '<p class="text-xs text-gray-500 font-semibold mb-2">おすすめ（任意）</p>';
-        itemsContainer.appendChild(optionalHeader);
-        
-        itemsData.optional_items.forEach(item => {
-          const itemElement = document.createElement('div');
-          itemElement.className = 'flex items-center gap-4 mb-3 opacity-75';
-          itemElement.innerHTML = `
-            <span class="text-2xl" role="img" aria-label="${item.name}">${item.icon}</span>
-            <div>
-              <p class="text-sm text-gray-700">${item.name}</p>
-              <p class="text-xs text-gray-500">${item.reason}</p>
-            </div>
-          `;
-          itemsContainer.appendChild(itemElement);
-        });
-      }
-    }
-
-    // デフォルトの持ち物アドバイスを表示する関数
-    function displayDefaultItemsAdvice() {
-      const itemsContainer = document.getElementById('items-advice');
-      itemsContainer.innerHTML = `
-        <div class="flex items-center gap-4">
-          <span class="text-3xl" role="img" aria-label="umbrella">🌂</span>
-          <p class="text-sm">夕方から雨が降るかも？折りたたみ傘があると安心！</p>
-        </div>
-        <div class="flex items-center gap-4">
-          <span class="text-3xl" role="img" aria-label="sunglasses">🕶️</span>
-          <p class="text-sm">日差しが強いから、UV対策は忘れずにね。</p>
-        </div>
-      `;
-    }
-
-    // リフレッシュ関数
-    function refreshData() {
-      fetchAndDisplayData();
-    }
-
-    // ページ読み込み時にデータを取得
-    document.addEventListener('DOMContentLoaded', function() {
-      fetchAndDisplayData();
-      
-      // スタイル選択ボタンのイベントリスナーを追加
-      const styleButtons = document.querySelectorAll('.style-btn');
-      console.log('スタイルボタン数:', styleButtons.length);
-      
-      styleButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          console.log('ボタンがクリックされました:', this.dataset.style);
-          
-          // アクティブクラスを削除
-          styleButtons.forEach(btn => btn.classList.remove('active'));
-          
-          // クリックされたボタンにアクティブクラスを追加
-          this.classList.add('active');
-          
-          // 選択されたスタイルを更新
-          currentStyle = this.dataset.style;
-          console.log('現在のスタイル:', currentStyle);
-          
-          // 服装データを再取得
-          fetchClothingData(currentStyle);
-        });
-      });
-    });
-    
-    // 花粉情報を表示する関数
-    function displayPollenInfo(pollenData) {
-      // メインアイコンとレベル
-      document.getElementById('pollen-main-icon').textContent = getPollenMainIcon(pollenData.overall_level);
-      document.getElementById('pollen-level').textContent = getPollenLevelText(pollenData.overall_level);
-      document.getElementById('pollen-advice').textContent = pollenData.advice;
-      
-      // 花粉の種類
-      const pollenTypesContainer = document.getElementById('pollen-types');
-      pollenTypesContainer.innerHTML = '';
-      
-      pollenData.pollen_types.forEach(pollen => {
-        const pollenElement = document.createElement('div');
-        pollenElement.className = 'flex justify-between items-center';
-        pollenElement.innerHTML = `
-          <div class="flex items-center gap-2">
-            <span class="text-xl">${pollen.icon}</span>
-            <span class="text-sm">${pollen.name}</span>
-          </div>
-          <span class="text-sm font-semibold ${getPollenLevelColor(pollen.level)}">${getPollenLevelText(pollen.level)}</span>
-        `;
-        pollenTypesContainer.appendChild(pollenElement);
-      });
-      
-      // 3日間の予報
-      const forecastContainer = document.getElementById('pollen-forecast');
-      forecastContainer.innerHTML = '';
-      
-      pollenData.forecast.forEach(day => {
-        const forecastElement = document.createElement('div');
-        forecastElement.className = 'text-center';
-        forecastElement.innerHTML = `
-          <p class="text-xs text-gray-500">${day.day}</p>
-          <span class="text-lg">${day.icon}</span>
-          <p class="text-xs font-semibold ${getPollenLevelColor(day.level)}">${getPollenLevelText(day.level)}</p>
-        `;
-        forecastContainer.appendChild(forecastElement);
-      });
-    }
-    
-    // 花粉レベル関連のヘルパー関数
-    function getPollenMainIcon(level) {
-      switch(level) {
-        case 'very_high': return '🌲';
-        case 'high': return '🌲';
-        case 'medium': return '🌳';
-        case 'low': return '🌿';
-        default: return '🌸';
-      }
-    }
-    
-    function getPollenLevelText(level) {
-      switch(level) {
-        case 'very_high': return '非常に多い';
-        case 'high': return '多い';
-        case 'medium': return '中程度';
-        case 'low': return '少ない';
-        case 'very_low': return '非常に少ない';
-        default: return '不明';
-      }
-    }
-    
-    function getPollenLevelColor(level) {
-      switch(level) {
-        case 'very_high': return 'text-red-600';
-        case 'high': return 'text-orange-600';
-        case 'medium': return 'text-yellow-600';
-        case 'low': return 'text-green-600';
-        case 'very_low': return 'text-blue-600';
-        default: return 'text-gray-600';
-      }
-    }
+    <%= yield %>
   </body>
 </html>

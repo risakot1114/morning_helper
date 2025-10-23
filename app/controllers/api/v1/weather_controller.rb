@@ -21,9 +21,12 @@ class Api::V1::WeatherController < Api::V1::ApplicationController
       
       render_success(weather_data, 'Weather data retrieved successfully')
     rescue WeatherService::ApiError => e
-      render_error("Weather API error: #{e.message}", 'WEATHER_API_ERROR', 503)
+      Rails.logger.error "Weather API Error: #{e.message}"
+      Rails.logger.error "Location: #{lat}, #{lon}"
+      render_error("Weather service temporarily unavailable", 'SERVICE_UNAVAILABLE', 503)
     rescue => e
       Rails.logger.error "Weather controller error: #{e.message}"
+      Rails.logger.error "Backtrace: #{e.backtrace.first(5).join(', ')}"
       render_error('Failed to retrieve weather data', 'INTERNAL_ERROR', 500)
     end
   end

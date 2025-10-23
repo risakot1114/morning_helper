@@ -76,3 +76,8 @@ group :test do
   gem "factory_bot_rails"
   gem "faker"
 end
+
+group :production do
+  # 本番環境用のgem
+  gem "sassc-rails"
+end

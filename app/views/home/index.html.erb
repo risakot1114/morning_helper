@@ -987,7 +987,12 @@
               }
             }, 1000);
 
-            // フッターのホームタブのイベントリスナー
+          });
+
+          // ===== フッタータブのイベントリスナー（DOMContentLoadedの外で設定） =====
+          
+          // フッターのホームタブのイベントリスナー
+          document.addEventListener('DOMContentLoaded', function() {
             const homeTab = document.getElementById('home-tab');
             if (homeTab) {
               homeTab.addEventListener('click', function(e) {

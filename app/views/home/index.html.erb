@@ -321,14 +321,14 @@
 <!-- ===== フッターナビゲーション ===== -->
 <footer class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm max-w-sm mx-auto rounded-t-3xl shadow-lg border-t border-blue-100 z-50 h-20">
   <nav class="flex justify-around py-4">
-    <a href="#" class="flex flex-col items-center justify-center text-center w-full py-2 active">
+    <button id="home-tab" class="flex flex-col items-center justify-center text-center w-full py-2 active">
       <span class="text-2xl" role="img" aria-label="home">🏠</span>
       <span class="text-xs font-bold">ホーム</span>
-    </a>
-    <a href="#" id="weekly-tab" class="flex flex-col items-center justify-center text-gray-400 text-center w-full py-2">
+    </button>
+    <button id="weekly-tab" class="flex flex-col items-center justify-center text-gray-400 text-center w-full py-2">
       <span class="text-2xl" role="img" aria-label="calendar">🗓️</span>
       <span class="text-xs">週間</span>
-    </a>
+    </button>
     <a href="#" class="flex flex-col items-center justify-center text-gray-400 text-center w-full py-2">
       <span class="text-2xl" role="img" aria-label="people">👨‍👩‍👧‍👦</span>
       <span class="text-xs">みんな</span>
@@ -986,6 +986,17 @@
                 });
               }
             }, 1000);
+
+            // フッターのホームタブのイベントリスナー
+            const homeTab = document.getElementById('home-tab');
+            if (homeTab) {
+              homeTab.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('ホームタブがクリックされました');
+                showHomePage();
+              });
+            }
 
             // フッターの週間タブのイベントリスナー
             const weeklyTab = document.getElementById('weekly-tab');

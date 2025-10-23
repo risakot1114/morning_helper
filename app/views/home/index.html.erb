@@ -280,26 +280,35 @@
     <div class="container mx-auto max-w-sm p-3 pb-24">
       <!-- ヘッダー -->
       <header class="flex justify-between items-center py-4 px-2">
-        <h1 class="text-2xl font-bold text-pink-300">週間予報</h1>
-        <button id="back-to-home" class="w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md">
-          <span class="text-xl" role="img" aria-label="back">←</span>
+        <h1 class="text-2xl font-bold text-pink-300">📅 週間予報</h1>
+        <button id="back-to-home" class="w-8 h-8 flex items-center justify-center rounded-full bg-pink-100 shadow-md hover:bg-pink-200 transition-colors">
+          <span class="text-xl text-pink-600" role="img" aria-label="back">🏠</span>
         </button>
       </header>
 
       <!-- 週間天気予報 -->
       <section class="card transform -rotate-1 mb-4">
-        <h3 class="font-bold text-xl mb-3 text-center">週間天気予報</h3>
-        <div id="weekly-weather-content">
-          <!-- 週間天気データがここに表示されます -->
+        <div class="flex items-center justify-center mb-3">
+          <span class="text-2xl mr-2">🌤️</span>
+          <h3 class="font-bold text-xl text-center">週間天気予報</h3>
+        </div>
+        <div id="weekly-weather-content" class="min-h-[200px] flex items-center justify-center">
+          <div class="text-center text-gray-500">
+            <div class="animate-spin text-4xl mb-2">⏳</div>
+            <p>週間天気を読み込み中...</p>
+          </div>
         </div>
       </section>
 
       <!-- 週間服装提案 -->
       <section class="card transform rotate-1">
-        <h3 class="font-bold text-xl mb-3 text-center">週間コーディネート</h3>
+        <div class="flex items-center justify-center mb-3">
+          <span class="text-2xl mr-2">👗</span>
+          <h3 class="font-bold text-xl text-center">週間コーディネート</h3>
+        </div>
         
         <!-- スタイル選択ボタン -->
-        <div class="flex justify-center gap-1 mb-3">
+        <div class="flex justify-center gap-2 mb-4">
           <button class="style-btn active" data-style="business" id="weekly-style-business">
             <span class="text-xl">👔</span>
             <span class="text-xs">ビジネス</span>
@@ -314,8 +323,11 @@
           </button>
         </div>
 
-        <div id="weekly-clothing-content">
-          <!-- 週間服装データがここに表示されます -->
+        <div id="weekly-clothing-content" class="min-h-[200px] flex items-center justify-center">
+          <div class="text-center text-gray-500">
+            <div class="animate-spin text-4xl mb-2">⏳</div>
+            <p>週間コーデを読み込み中...</p>
+          </div>
         </div>
       </section>
     </div>
@@ -1307,27 +1319,27 @@
             
             let html = `
               <div class="mb-4">
-                <p class="text-sm text-gray-500 text-center">${weatherData.location.name}</p>
+                <p class="text-sm text-gray-500 text-center">📍 ${weatherData.location.name}</p>
               </div>
               <div class="space-y-3">
             `;
             
             weatherData.weekly_forecast.forEach(day => {
               html += `
-                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div class="flex items-center justify-between p-3 bg-gradient-to-r from-blue-50 to-pink-50 rounded-lg border border-blue-100">
                   <div class="flex items-center gap-3">
                     <div class="text-center">
-                      <p class="text-sm font-medium">${day.day_of_week}</p>
+                      <p class="text-sm font-bold text-gray-700">${day.day_of_week}</p>
                       <p class="text-xs text-gray-500">${day.date}</p>
                     </div>
-                    <span class="text-3xl">${day.icon}</span>
+                    <span class="text-3xl animate-bounce">${day.icon}</span>
                     <div>
-                      <p class="text-sm font-medium">${day.description}</p>
-                      <p class="text-xs text-gray-500">降水確率 ${day.rain_probability}%</p>
+                      <p class="text-sm font-medium text-gray-700">${day.description}</p>
+                      <p class="text-xs text-blue-600">☔ 降水確率 ${day.rain_probability}%</p>
                     </div>
                   </div>
                   <div class="text-right">
-                    <p class="text-lg font-bold">${day.max_temp}°</p>
+                    <p class="text-lg font-bold text-gray-700">${day.max_temp}°</p>
                     <p class="text-sm text-gray-500">${day.min_temp}°</p>
                   </div>
                 </div>
@@ -1344,24 +1356,24 @@
             
             let html = `
               <div class="mb-4">
-                <p class="text-sm text-gray-500 text-center">${clothingData.location.name}</p>
-                <p class="text-sm text-gray-600 text-center mt-2">${clothingData.weekly_summary}</p>
+                <p class="text-sm text-gray-500 text-center">📍 ${clothingData.location.name}</p>
+                <p class="text-sm text-pink-600 text-center mt-2 bg-pink-50 rounded-lg p-2">💡 ${clothingData.weekly_summary}</p>
               </div>
               <div class="space-y-4">
             `;
             
             clothingData.weekly_outfits.forEach(day => {
               html += `
-                <div class="p-4 bg-gray-50 rounded-lg">
+                <div class="p-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg border border-pink-100">
                   <div class="flex items-center justify-between mb-3">
                     <div class="text-center">
-                      <p class="text-sm font-medium">${day.day_of_week}</p>
+                      <p class="text-sm font-bold text-gray-700">${day.day_of_week}</p>
                       <p class="text-xs text-gray-500">${day.date}</p>
                     </div>
                     <div class="flex items-center gap-2">
-                      <span class="text-2xl">${day.weather.icon}</span>
+                      <span class="text-2xl animate-pulse">${day.weather.icon}</span>
                       <div class="text-right">
-                        <p class="text-sm font-bold">${day.weather.max_temp}°</p>
+                        <p class="text-sm font-bold text-gray-700">${day.weather.max_temp}°</p>
                         <p class="text-xs text-gray-500">${day.weather.min_temp}°</p>
                       </div>
                     </div>
@@ -1370,14 +1382,14 @@
                   <div class="flex items-center gap-3 mb-2">
                     <span class="text-2xl">${day.outfit.icon}</span>
                     <div class="flex-1">
-                      <p class="text-sm font-medium">${day.outfit.top}</p>
-                      <p class="text-xs text-gray-500">${day.outfit.bottom}</p>
-                      ${day.outfit.outer ? `<p class="text-xs text-gray-500">${day.outfit.outer}</p>` : ''}
+                      <p class="text-sm font-medium text-gray-700">👕 ${day.outfit.top}</p>
+                      <p class="text-xs text-gray-500">👖 ${day.outfit.bottom}</p>
+                      ${day.outfit.outer ? `<p class="text-xs text-gray-500">🧥 ${day.outfit.outer}</p>` : ''}
                     </div>
                   </div>
                   
-                  <p class="text-xs text-gray-600 mb-2">${day.advice}</p>
-                  <p class="text-xs text-blue-600">${day.laundry_suggestion}</p>
+                  <p class="text-xs text-gray-600 mb-2 bg-white rounded p-2">💭 ${day.advice}</p>
+                  <p class="text-xs text-blue-600 bg-blue-50 rounded p-2">🧺 ${day.laundry_suggestion}</p>
                 </div>
               `;
             });

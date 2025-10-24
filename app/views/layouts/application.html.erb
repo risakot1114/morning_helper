@@ -3,7 +3,7 @@
   <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>今日のコーデ予報</title>
+  <title>Morning Helper</title>
   
   <!-- Tailwind CSS を読み込み -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -18,12 +18,12 @@
   <meta name="theme-color" content="#87CEEB">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="今日のコーデ予報">
+  <meta name="apple-mobile-web-app-title" content="Morning Helper">
   
   <!-- SEO・SNS用メタタグ -->
   <meta name="description" content="朝の忙しい時間に、天気・服装・持ち物・花粉・占いの情報を一括で提供するポップ&キュートなWebアプリ">
   <meta name="keywords" content="天気,服装,コーディネート,占い,花粉,朝,準備,ポップ,キュート">
-  <meta property="og:title" content="今日のコーデ予報">
+  <meta property="og:title" content="Morning Helper">
   <meta property="og:description" content="朝の忙しい時間に、天気・服装・持ち物・花粉・占いの情報を一括で提供するポップ&キュートなWebアプリ">
   <meta property="og:type" content="website">
   <meta property="og:image" content="/apple-touch-icon.png">
@@ -326,6 +326,21 @@
     .style-btn.active:hover {
       transform: translateY(-2px) scale(1.05);
       background: linear-gradient(145deg, rgba(70, 130, 180, 0.3), rgba(135, 206, 235, 0.4));
+    }
+    
+    /* 週間ページのスタイルボタン（緑系） */
+    #weekly-page .style-btn.active {
+      background: linear-gradient(145deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.3));
+      color: #059669;
+      border-color: rgba(34, 197, 94, 0.4);
+      box-shadow: 
+        0 6px 16px -4px rgba(34, 197, 94, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.8);
+    }
+    
+    #weekly-page .style-btn.active:hover {
+      transform: translateY(-2px) scale(1.05);
+      background: linear-gradient(145deg, rgba(34, 197, 94, 0.3), rgba(16, 185, 129, 0.4));
     }
     
             /* 天気アイコンの動的アニメーション */

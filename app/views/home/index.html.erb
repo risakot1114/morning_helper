@@ -3,14 +3,11 @@
   <!-- ===== ヘッダー ===== -->
   <header class="flex justify-between items-center py-4 px-2">
     <h1 class="app-title text-pink-300">Morning Helper☀️</h1>
-    <div class="flex items-center gap-2">
-        <button id="simple-weekly-btn" class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-medium hover:bg-blue-200 transition-colors">
-          週間
-        </button>
-      <div class="w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md">
-        <span class="text-xl" role="img" aria-label="settings">⚙️</span>
-      </div>
-    </div>
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md">
+            <span class="text-xl" role="img" aria-label="settings">⚙️</span>
+          </div>
+        </div>
   </header>
 
   <main>
@@ -1011,59 +1008,6 @@
 
           });
 
-          // ===== シンプルな週間ボタン =====
-          document.addEventListener('DOMContentLoaded', function() {
-            const simpleWeeklyBtn = document.getElementById('simple-weekly-btn');
-            if (simpleWeeklyBtn) {
-              simpleWeeklyBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('シンプル週間ボタンがクリックされました');
-                
-                // ホームページを非表示
-                const mainElement = document.querySelector('main');
-                if (mainElement) {
-                  mainElement.classList.add('hidden');
-                  console.log('ホームページを非表示にしました');
-                }
-                
-                // 週間ページを表示
-                const weeklyPageElement = document.getElementById('weekly-page');
-                if (weeklyPageElement) {
-                  weeklyPageElement.classList.remove('hidden');
-                  console.log('週間ページを表示しました');
-                }
-                
-                // 週間データを読み込み
-                loadWeeklyData();
-              });
-            }
-
-            // ホームに戻るボタン
-            const backToHomeBtn = document.getElementById('back-to-home');
-            if (backToHomeBtn) {
-              backToHomeBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('ホームに戻るボタンがクリックされました');
-                
-                // 週間ページを非表示
-                const weeklyPageElement = document.getElementById('weekly-page');
-                if (weeklyPageElement) {
-                  weeklyPageElement.classList.add('hidden');
-                  console.log('週間ページを非表示にしました');
-                }
-                
-                // ホームページを表示
-                const mainElement = document.querySelector('main');
-                if (mainElement) {
-                  mainElement.classList.remove('hidden');
-                  console.log('ホームページを表示しました');
-                }
-              });
-            }
-          });
-
           // ===== フッタータブのイベントリスナー（DOMContentLoadedの外で設定） =====
           
           // フッターのホームタブのイベントリスナー
@@ -1156,7 +1100,7 @@
               // 全てのタブを非アクティブ状態にリセット
               tab.classList.remove('active');
               tab.classList.add('text-gray-400');
-              tab.classList.remove('text-green-600');
+              tab.classList.remove('text-green-500');
               tab.classList.remove('text-pink-300');
               tab.querySelector('span:last-child').classList.remove('font-bold');
             });
@@ -1171,7 +1115,7 @@
               // 週間タブをアクティブ（緑系）
               tabs[1].classList.add('active');
               tabs[1].classList.remove('text-gray-400');
-              tabs[1].classList.add('text-green-600');
+              tabs[1].classList.add('text-green-500');
               tabs[1].querySelector('span:last-child').classList.add('font-bold');
             }
           }

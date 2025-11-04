@@ -34,10 +34,10 @@
 ## 🖼️ 実装済み機能の画像/GIF
 
 ### ホーム画面
-[![Image from Gyazo](https://i.gyazo.com/fb815d9c8da9f9ca48892783621cc9fe.gif)](https://gyazo.com/fb815d9c8da9f9ca48892783621cc9fe)
+<img src="https://i.gyazo.com/fb815d9c8da9f9ca48892783621cc9fe.gif" width="400" alt="ホーム画面">
 
 ### 週間ページ
-[![Image from Gyazo](https://i.gyazo.com/78cffaebf2072e79229fa5b5c5620659.gif)](https://gyazo.com/78cffaebf2072e79229fa5b5c5620659)
+<img src="https://i.gyazo.com/78cffaebf2072e79229fa5b5c5620659.gif" width="400" alt="週間ページ">
 
 ## 🧩 実装済み機能
 

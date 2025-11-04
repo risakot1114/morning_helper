@@ -33,8 +33,11 @@
 
 ## 🖼️ 実装済み機能の画像/GIF
 
-- **ホーム画面**: ![ホーム画面](https://i.gyazo.com/fb815d9c8da9f9ca48892783621cc9fe.gif)
-- **週間ページ**: ![週間ページ](https://i.gyazo.com/78cffaebf2072e79229fa5b5c5620659.gif)
+### ホーム画面
+[![Image from Gyazo](https://i.gyazo.com/fb815d9c8da9f9ca48892783621cc9fe.gif)](https://gyazo.com/fb815d9c8da9f9ca48892783621cc9fe)
+
+### 週間ページ
+[![Image from Gyazo](https://i.gyazo.com/78cffaebf2072e79229fa5b5c5620659.gif)](https://gyazo.com/78cffaebf2072e79229fa5b5c5620659)
 
 ## 🧩 実装済み機能
 
